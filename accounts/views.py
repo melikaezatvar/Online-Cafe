@@ -1,11 +1,10 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .models import User
+from rest_framework.generics import CreateAPIView
+from .models import CustomerProfile
 from .serializers import UserSerializer
 
 
-class UserRegistrationView(generics.CreateAPIView):
-    queryset = User.objects.all()
+class RegisterView(CreateAPIView):
+    queryset = CustomerProfile.objects.all()
     serializer_class = UserSerializer
 
 

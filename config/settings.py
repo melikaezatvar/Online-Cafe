@@ -44,7 +44,9 @@ INSTALLED_APPS = [
 
     # Third-party
     'rest_framework',
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,10 +125,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT_PATH = BASE_DIR / "storage/static"
+
+if DEBUG:
+    STATICFILES_DIRS = [
+        STATIC_ROOT_PATH,
+    ]
+else:
+    STATIC_ROOT = STATIC_ROOT_PATH
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'storage/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'accounts.CustomerProfile'

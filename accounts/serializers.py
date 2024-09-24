@@ -1,18 +1,18 @@
 from rest_framework import serializers
-from .models import User
+from django.contrib.auth import authenticate
+from .models import CustomerProfile
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username', 'password', 'phone_number']
-        extra_kwargs = {'password': {'write_only': True}}
+        model = CustomerProfile
+        fields = ('username', 'phone_number', 'password')
 
     def create(self, validated_data):
-        user = User(
-            username=validated_data['username'],
-            phone_number=validated_data['phone_number']
-        )
+        user = CustomerProfile(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+
