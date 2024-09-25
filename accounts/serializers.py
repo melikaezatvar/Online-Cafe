@@ -9,9 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'phone_number', 'password')
 
     def create(self, validated_data):
-        user = CustomerProfile(**validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
+        validated_data.pop('confirm_password', None)
+        user = CustomerProfile.objects.create_user(**validated_data)
         return user
 
 

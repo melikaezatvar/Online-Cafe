@@ -7,3 +7,10 @@ class TimeStampMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class AbstractDeleteModel(models.Model):
+    is_delete = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True

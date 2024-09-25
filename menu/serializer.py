@@ -37,7 +37,8 @@ class ProductSerializer(ModelSerializer):
 
     def update(self, instance, validated_data):
         images_data = self.context['request'].FILES.getlist('images', [])
-        validated_data.pop('images')
+        validated_data.pop('images', None)
         instance.update(**validated_data)
+        instance.images.delete()
         images = [Image(product=instance, src=image_data) for image_data in images_data]
         Image.objects.bulk_create(images)
