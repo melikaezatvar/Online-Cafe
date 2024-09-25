@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # Third-party
     'rest_framework',
+    "order.apps.OrderConfig"
 
 ]
 
