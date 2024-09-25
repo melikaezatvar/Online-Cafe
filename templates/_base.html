@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        {% include 'layout/head.html' %}
+        <title>{% block title %}Cafe{% endblock %}</title>
+    </head>
+    <body>
+        {% block header %}
+            {% include 'layout/header.html' %}
+        {% endblock %}
+        {% csrf_token %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include 'layout/footer.html' %}
+
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+        <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+        <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+        <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+        <script src="{% static 'mail/contact.js' %}"></script>
+
+        <script src="{% static '../../static/js/account/js/main.js' %}"></script>
+
+        {% block extra_body %}{% endblock %}
+
+    </body>
+</html>
