@@ -1,6 +1,7 @@
 from django.contrib.auth import login, logout
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,9 +9,11 @@ from .models import CustomerProfile
 from .serializers import UserSerializer, LoginSerializer
 
 
-class RegisterView(CreateAPIView):
+class RegisterView(ListCreateAPIView):
+    renderer_classes = [TemplateHTMLRenderer]
     queryset = CustomerProfile.objects.all()
     serializer_class = UserSerializer
+    template_name = 'account/register.html'
 
 
 class LoginView(APIView):
@@ -27,3 +30,5 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+
+# window location for js handeling to redirect home url
