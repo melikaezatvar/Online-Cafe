@@ -5,5 +5,5 @@ urlpatterns = [
     path('api/product', ProductAPIView.as_view(), name='product-list'),
     path('api/product/<int:pk>', ProductAPIView.as_view(), name='product'),
     path('api/product/<str:name>', ProductAPIView.as_view(), name='product-list-by-category'),
-    path('home/', HomeAPIView.as_view(), name='home'),
+    path('api/home/', HomeAPIView.as_view(), name='home'),
 ]
