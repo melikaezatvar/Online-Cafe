@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.db import models
 from core.models import TimeStampMixin
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 # from accounts.models import CustomerProfile
 from menu.models import Product
 
