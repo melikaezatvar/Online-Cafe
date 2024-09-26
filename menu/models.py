@@ -3,14 +3,27 @@ from core.models import TimeStampMixin, AbstractDeleteModel
 
 
 class Category(TimeStampMixin, AbstractDeleteModel):
-    name = models.CharField(max_length=255)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childes')
+    name = models.CharField(max_length=255, unique=True)
+    _parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childes')
 
+    @property
+    def parent(self):
+        parents = []
+
+        def check_parent(child: Category):
+            if child._parent:
+                parents.append(child._parent.name)
+                return check_parent(child._parent)
+        check_parent(self)
+        return ' > '.join(parents)
+
+    @property
     def get_childes(self):
-        return self.childes.filter(is_delete=False)
+        return [child.name for child in self.childes.filter(is_delete=False)]
 
+    @property
     def get_products(self):
-        return self.products.filter(is_delete=False)
+        return [product.name for product in self.products.filter(is_delete=False)]
 
     def __str__(self):
         return self.name

@@ -1,5 +1,8 @@
 {% extends '../_base.html' %}
 {% load static %}
+{% block header %}{{ block.super }}
+{#    <link rel="stylesheet" href="{% static 'css/home.css' %}">#}
+{% endblock %}
 {% block content %}
     <div class="grid grid-cols-2 gap-[3%] mx-[10%]">
         <form id="register-form" class="grid gap-3 mb-5" method="POST">

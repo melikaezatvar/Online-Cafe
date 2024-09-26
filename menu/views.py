@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import status
 from .models import Product, Category
-from .serializer import ProductSerializer
-from django.shortcuts import render
+from .serializer import ProductSerializer, CategorySerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 
 
@@ -12,7 +12,7 @@ class HomeAPIView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
 
     def get(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_200_OK, template_name='index.html')
+        return Response(status=status.HTTP_200_OK, template_name='home.html')
 
 
 class ProductAPIView(APIView):
@@ -56,3 +56,9 @@ class ProductAPIView(APIView):
     def delete(self, request, *args, **kwargs):
         Product.objects.filter(pk=kwargs['pk']).update(is_delete=False)
         return Response({"message": "Product deleted successfully"}, status=status.HTTP_200_OK)
+
+
+class CategoryAPIView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
