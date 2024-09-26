@@ -1,17 +1,29 @@
-<form id="register-form" method="POST" class="flex flex-col p-4 rounded-lg gap-5 bg-white justify-center mx-auto w-[40vh] h-[45vh] my-[10vh] shadow-lg">
-    <label for="username" class="input input-bordered flex items-center gap-2">
-        <input required type="text" name="username" placeholder="Username" class="input input-bordered" />
-    </label>
-
-    <label for="password" class="input input-bordered flex items-center gap-2">
-        <input minlength="6" maxlength="255" required type="password" name="password" placeholder="Password" class="input input-bordered" />
-    </label>
-
-    <label for="confirm-password" class="input input-bordered flex items-center gap-2">
-        <input minlength="6" maxlength="255" required type="password" name="confirm-password" placeholder="Confirm Password" class="input input-bordered" />
-    </label>
-
-    <button type="submit" class="btn bg-brown-600 hover:bg-brown-700 text-white mx-auto w-[25vh]">Register</button>
-
-    <p class="mx-auto">Already have an account? <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-800">Login</a></p>
-</form>
+{% extends '../_base.html' %}
+{% load static %}
+{% block content %}
+    <div class="grid grid-cols-2 gap-[3%] mx-[10%]">
+        <form id="register-form" class="grid gap-3 mb-5" method="POST">
+            <div class="section-title">
+                <h4 class="text-primary text-uppercase text-[30px]" style="letter-spacing: 5px;">Register</h4>
+            </div>
+            <input required type="text" name="username" placeholder="Username" class="form-control bg-transparent p-4" />
+            <input required type="password" name="password" placeholder="Password" class="form-control bg-transparent p-4" />
+            <input required type="password" name="confirm_password" placeholder="Confirm Password" class="form-control bg-transparent p-4" />
+            <input id="phone_number" required type="text" name="phone_number" placeholder="PhoneNumber" class="form-control bg-transparent p-4" />
+        </form>
+        <form id="login-form" class="flex flex-col gap-3 mb-5">
+            <div class="section-title">
+                <h4 class="text-primary text-uppercase text-[30px]" style="letter-spacing: 5px;">Login</h4>
+            </div>
+            <input required type="text" name="username" placeholder="Username" class="form-control bg-transparent p-4" />
+            <input required type="password" name="password" placeholder="Password" class="form-control bg-transparent p-4" />
+        </form>
+    </div>
+    <div class="grid grid-cols-2 gap-[3%] mx-[10%]">
+        <button id="register-form-btn" name="register-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Register</button>
+        <button name="login-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Login</button>
+    </div>
+{% endblock %}
+{% block extra_body %}
+    <script src="{% static 'js/account/register.js' %}"></script>
+{% endblock %}
