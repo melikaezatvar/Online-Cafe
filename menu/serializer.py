@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Product, Image
+from .models import Product, Image, Category
 
 
 class ProductImageSerializer(ModelSerializer):
@@ -42,3 +42,14 @@ class ProductSerializer(ModelSerializer):
         instance.images.delete()
         images = [Image(product=instance, src=image_data) for image_data in images_data]
         Image.objects.bulk_create(images)
+
+
+class CategorySerializer(ModelSerializer):
+    parent = Category.objects.name
+
+    class Meta:
+        model = Category
+        fields = ['name',
+                  'parent',
+                  'get_childes',
+                  'get_products']
