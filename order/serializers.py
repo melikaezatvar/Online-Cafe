@@ -6,6 +6,7 @@ from menu.serializer import ProductSerializer
 class OrderItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
 
+
     class Meta:
         model = OrderItem
         fields = ['product', 'quantity', 'get_total_price']

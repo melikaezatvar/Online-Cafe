@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     # My Apps:
     'accounts',
     'menu',
+    'order',
 
     # Third-party
     'rest_framework',
-    "order.apps.OrderConfig"
+
 
 ]
 

@@ -1,8 +1,10 @@
 # orders/models.py
-from django.conf import settings
+
 from django.db import models
+
+from config import settings
 from core.models import TimeStampMixin
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 # from accounts.models import CustomerProfile
 from menu.models import Product
 
@@ -19,7 +21,7 @@ class Order(TimeStampMixin):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
-        return f"Order #{self.id} by {self.user.name}"
+        return f"Order #{self.id} by {self.user.username}"
 
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.items.all())
