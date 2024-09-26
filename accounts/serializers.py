@@ -7,6 +7,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerProfile
         fields = ('username', 'phone_number', 'password')
+        extra_kwargs = {
+            'phone_number': {'required': False}
+        }
 
     def create(self, validated_data):
         validated_data.pop('confirm_password', None)

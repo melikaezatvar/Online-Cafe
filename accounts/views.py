@@ -1,31 +1,28 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from .models import CustomerProfile
 from .serializers import UserSerializer, LoginSerializer
 
 
 class RegisterView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    queryset = CustomerProfile.objects.all()
-    serializer_class = UserSerializer
-    template_name = 'account/register.html'
 
-    # def get(self, request, *args, **kwargs):
-    #     serializer = self.serializer_class(data=request.data)
-    #     return Response({'serializer': serializer}, template_name=self.template_name)
+    def get(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data)
+        return Response({'serializer': serializer}, template_name='account/register.html')
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return redirect('login')  # Redirect to log in after successful registration
-        return Response({'serializer': serializer}, template_name=self.template_name)
+            user = serializer.save()
+            login(request, user)
+
+            # Redirect to log in after successful registration
+            return Response(serializer.data, status=status.HTTP_201_CREATED, template_name='index.html')
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST, template_name='account/register.html')
 
 
 class LoginView(APIView):

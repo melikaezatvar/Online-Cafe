@@ -1,34 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const registerForm = document.getElementById('registerForm');
+    const registerForm = document.getElementById('register-form-btn');
 
-    registerForm.addEventListener('submit', async function (event) {
-        event.preventDefault();
-
+    registerForm.addEventListener('click', async function (event) {
+        event.preventDefault()
         const phoneNumber = document.getElementById('phone_number').value;
 
-        const formData = {
-            phone_number: phoneNumber
-        };
+        const data = new FormData(document.querySelector('#register-form'))
+        const formData = {}
+        data.forEach((e, v) => formData[v] = e)
+        console.log(formData)
 
         try {
             const response = await fetch('/api/register/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCSRFToken()
-                },
-                body: JSON.stringify(formData)
+                body: data
             });
+            debugger
 
             const result = await response.json();
 
             if (response.ok) {
                 alert('Registration successful! Redirecting...');
-                window.location.href = '/login/';
+
             } else {
                 alert('Error: ' + result.detail || 'Registration failed. Please try again.');
             }
         } catch (error) {
+            console.log(error.message)
             alert('An error occurred. Please try again later.');
         }
     });
