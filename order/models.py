@@ -1,5 +1,5 @@
 # orders/models.py
-
+from django.conf import settings
 from django.db import models
 from core.models import TimeStampMixin
 from django.contrib.auth.models import User
@@ -15,11 +15,11 @@ class Order(TimeStampMixin):
         ('cancelled', 'Cancelled'),
     ]
 
-    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
-        return f"Order #{self.id} by {self.user.username}"
+        return f"Order #{self.id} by {self.user.name}"
 
     def get_total_price(self):
         return sum(item.get_total_price() for item in self.items.all())

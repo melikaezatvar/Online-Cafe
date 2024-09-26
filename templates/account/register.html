@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<form id="register-form" method="POST" class="flex flex-col p-4 rounded-lg gap-5 bg-white justify-center mx-auto w-[40vh] h-[45vh] my-[10vh] shadow-lg">
+    <label for="username" class="input input-bordered flex items-center gap-2">
+        <input required type="text" name="username" placeholder="Username" class="input input-bordered" />
+    </label>
 
-</body>
-</html>
+    <label for="password" class="input input-bordered flex items-center gap-2">
+        <input minlength="6" maxlength="255" required type="password" name="password" placeholder="Password" class="input input-bordered" />
+    </label>
+
+    <label for="confirm-password" class="input input-bordered flex items-center gap-2">
+        <input minlength="6" maxlength="255" required type="password" name="confirm-password" placeholder="Confirm Password" class="input input-bordered" />
+    </label>
+
+    <button type="submit" class="btn bg-brown-600 hover:bg-brown-700 text-white mx-auto w-[25vh]">Register</button>
+
+    <p class="mx-auto">Already have an account? <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-800">Login</a></p>
+</form>
