@@ -6,7 +6,8 @@ class ProductImageSerializer(ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ['src']
+        fields = ['src',
+                  'alt']
 
 
 class ProductSerializer(ModelSerializer):
