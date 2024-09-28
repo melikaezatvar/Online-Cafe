@@ -18,16 +18,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    phone_number = serializers.CharField()
+    username = serializers.CharField()
     password = serializers.CharField()
 
     def validate(self, data):
-        phone_number = data.get('phone_number')
+        username = data.get('username')
         password = data.get('password')
 
-        user = authenticate(phone_number=phone_number, password=password)
+        user = authenticate(username=username, password=password)
         if user is None:
-            raise serializers.ValidationError("Invalid credentials")
-        return user
+            raise serializers.ValidationError("Invalid username or password")
+        return {'user': user}
 
 
