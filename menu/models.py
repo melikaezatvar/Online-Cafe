@@ -15,7 +15,8 @@ class Category(TimeStampMixin, AbstractDeleteModel):
                 parents.append(child._parent.name)
                 return check_parent(child._parent)
         check_parent(self)
-        return ' > '.join(parents)
+        parents.reverse()
+        return parents
 
     @property
     def get_childes(self):
@@ -23,7 +24,20 @@ class Category(TimeStampMixin, AbstractDeleteModel):
 
     @property
     def get_products(self):
-        return [product.name for product in self.products.filter(is_delete=False)]
+        products = []
+
+        def check_products(child: Category):
+                if child.products.exists():
+                    print(child, ':', child.products.all())
+                    for pr in child.products.all():
+                        products.append({
+                            'id': pr.id,
+                            'name': pr.name,
+                            'price': pr.price,
+                            'images': [{'src': image.src.url, 'alt': image.alt} for image in pr.images.all()]})
+        check_products(self)
+
+        return products
 
     def __str__(self):
         return self.name
@@ -43,7 +57,7 @@ class Product(TimeStampMixin, AbstractDeleteModel):
 class Image(TimeStampMixin, AbstractDeleteModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     src = models.ImageField(upload_to='product/images/', null=True, blank=True)
-    alt = models.TextField(default=product.name)
+    alt = models.TextField(default=product.name, null=True, blank=True)
 
     def __str__(self):
         return self.src.url
