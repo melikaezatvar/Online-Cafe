@@ -3,7 +3,7 @@ from core.models import TimeStampMixin, AbstractDeleteModel
 
 
 class Category(TimeStampMixin, AbstractDeleteModel):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     _parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childes')
 
     @property
@@ -14,6 +14,7 @@ class Category(TimeStampMixin, AbstractDeleteModel):
             if child._parent:
                 parents.append(child._parent.name)
                 return check_parent(child._parent)
+
         check_parent(self)
         parents.reverse()
         return parents
@@ -27,17 +28,22 @@ class Category(TimeStampMixin, AbstractDeleteModel):
         products = []
 
         def check_products(child: Category):
-                if child.products.exists():
-                    print(child, ':', child.products.all())
-                    for pr in child.products.all():
-                        products.append({
-                            'id': pr.id,
-                            'name': pr.name,
-                            'price': pr.price,
-                            'images': [{'src': image.src.url, 'alt': image.alt} for image in pr.images.all()]})
-        check_products(self)
+            if child.products.exists():
+                for pr in child.products.all():
+                    products.append({
+                        'id': pr.id,
+                        'name': pr.name,
+                        'price': pr.price,
+                        'images': [{'src': image.src.url, 'alt': image.alt} for image in pr.images.all()]})
+            else:
+                for ch in child.childes.all():
+                    check_products(ch)
 
+        check_products(self)
         return products
+
+    class Meta:
+        unique_together = ('name', '_parent')
 
     def __str__(self):
         return self.name

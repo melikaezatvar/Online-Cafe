@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     function navbarCategory () {
-        console.log(111)
         const navCategoryEl = document.querySelector('#nav-category')
 
         fetch(`/api/category/`)
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.forEach(category => {
                     if (category.parent.length === 0) {
                         if (category.get_childes.lenth === 0) {
-                            console.log(category.name)
                             navCategoryEl.innerHTML += `<a class="dropdown-item">${category.name}</a>`
                         }
                         else {
@@ -26,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                     else if (category.parent.length !== 0 && category.get_childes.length !== 0) {
-                        console.log(category.name)
                         navCategoryEl.querySelector('#category-'+category.name).outerHTML = `
                             <div class="dropdown-submenu${category.name}">  
                                 <a href="/api/category/${category.name}">${category.name}     ></a>
@@ -37,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             navCategoryEl.querySelector('#category-'+category.name).innerHTML += `
                                  <a id="category-${e}" href="/api/category/${e}">${e}</a>`
                         })
-                        console.log(navCategoryEl.querySelector('#category-'+category.name))
                         document.head.innerHTML += `
                             <style>
                             .dropdown-submenu${category.name} {

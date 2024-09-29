@@ -10,9 +10,21 @@ class ProductImageSerializer(ModelSerializer):
                   'alt']
 
 
+class CategorySerializer(ModelSerializer):
+    parent = Category.objects.name
+
+    class Meta:
+        model = Category
+        fields = ['name',
+                  'parent',
+                  'get_childes',
+                  'get_products']
+
+
 class ProductSerializer(ModelSerializer):
 
     images = ProductImageSerializer(many=True)
+    category = CategorySerializer()
 
     class Meta:
         model = Product
@@ -45,12 +57,4 @@ class ProductSerializer(ModelSerializer):
         Image.objects.bulk_create(images)
 
 
-class CategorySerializer(ModelSerializer):
-    parent = Category.objects.name
 
-    class Meta:
-        model = Category
-        fields = ['name',
-                  'parent',
-                  'get_childes',
-                  'get_products']
