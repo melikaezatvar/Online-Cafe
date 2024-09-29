@@ -1,0 +1,12 @@
+.menu-container {
+    width: 90%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.menu-products {
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: grid;
+    margin-top: 2.5rem;
+}
