@@ -15,15 +15,19 @@
                         {% for image in product.images %}
                             <img onclick="changeImage(src, alt)" class="product-sub-images" src="{{ image.src }}" alt="{{ image.alt }}">
                         {% endfor %}
-                        
                     </div>
                 {% endif %}
             </div>
             <div class="product-description">
                 <div>
+                    <div>
+                        {% for parent in product.category.parent %}
+                            <a href="/api/category/{{ parent }}/">{{ parent }}</a> >
+                        {% endfor %}
+                        <a href="/api/category/{{ product.category.name }}/">{{ product.category.name }}</a>
+                    </div>
                     <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name }}</h4>
                     <hr class="hr-product">
-                    <p class="p-3">{{ product.description }}</p>
                 </div>
             </div>
             <i id="p-favorite" onclick="changeFavoriteStatus()" class="fa-regular fa-heart product-favorite-item absolute"></i>
