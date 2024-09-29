@@ -1,0 +1,61 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">{{ request.user.username }}'s Profile</h4>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-6 py-0 py-lg-5">
+                    <div>
+                        <form id="profile-form" method="POST" class="rl-style">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="username" value="{{ request.user.username }}" class="form-control bg-transparent p-4 mb-3" placeholder="Username" disabled/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="first_name" value="{{ request.user.first_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="First Name" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="last_name" value="{{ request.user.last_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="Last Name" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phone_number" value="{{ request.user.phone_number }}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <button id="update-form-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
+                    </div>
+
+                    <h3>Your Orders</h3>
+                    <ul>
+                        {% for order in orders %}
+                        <li>
+                            Order #{{ order.id }} - Status: {{ order.status }} - Total Price: {{ order.get_total_price }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                
+                    <h3>Favorite Items</h3>
+                    <ul id="favorite-list">
+                        {% for product in favorite_products %}
+                        <li id="favorite-item-{{ product.id }}">
+                            {{ product.name }} - Price: ${{ product.price }}
+                            <a href="" class="remove-favorite-btn font-weight-bold py-2 px-4 mt-2"  data-id="{{ product.id }}">Remove from Favorites</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            
+                <div class="col-lg-6 py-5 py-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100" src="{% static 'img/about.png' %}" style="object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
