@@ -31,3 +31,27 @@ class LoginSerializer(serializers.Serializer):
         return {'user': user}
 
 
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomerProfile
+        fields = ['username', 'first_name', 'last_name', 'phone_number', 'password', 'birthday', 'email']
+        extra_kwargs = {
+            'username': {'read_only': True},
+            'first_name': {'required': False},
+            'last_name': {'required': False},
+            'phone_number': {'required': False},
+            'password': {'required': False},
+            'birthday': {'required': False},
+            'email': {'required': False}
+        }
+
+        # def update(self, instance, validated_data):
+        #     print(validated_data)
+        #     instance.set_password(validated_data.pop('password', instance.password))
+        #     instance.objects.update_user(**validated_data)
+
+
+
+
+
