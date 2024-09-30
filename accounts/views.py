@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from menu.models import Product
 from .models import CustomerProfile
-from .serializers import UserSerializer, LoginSerializer, UserProfileSerializer, UserPasswordSerializer, \
-    FavoriteProductSerializer
+from .serializers import UserSerializer, LoginSerializer, UserProfileSerializer, UserPasswordSerializer
+from menu.serializer import ProductSerializer
 
 
 class RegisterView(APIView):
@@ -91,22 +91,20 @@ class ResetPasswordView(APIView):
 class FavoriteProductAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, product_id):
-        product = get_object_or_404(Product, id=product_id)
+    def get(self, request, *args, **kwargs):
+        favorite_products = request.user.favorite.all()
+        serializer = ProductSerializer(favorite_products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, id=kwargs['product_id'])
         if product in request.user.favorite.all():
             # Remove from favorites
             request.user.favorite.remove(product)
+            request.user.save()
             return Response({"message": "Product removed from favorites"}, status=status.HTTP_200_OK)
         else:
             # Add to favorites
             request.user.favorite.add(product)
+            request.user.save()
             return Response({"message": "Product added to favorites"}, status=status.HTTP_201_CREATED)
-
-
-class FavoriteProductsListAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        favorite_products = request.user.favorite.all()
-        serializer = FavoriteProductSerializer(favorite_products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
