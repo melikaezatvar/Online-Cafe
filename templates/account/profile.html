@@ -24,12 +24,30 @@
                             <div class="form-group">
                                 <input type="text" name="phone_number" value="{{ request.user.phone_number }}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
                             </div>
+                            <div class="form-group">
+                                <input type="date" name="birthday" value="{{ request.user.birthday }}" class="form-control bg-transparent p-4 mb-3" placeholder="Birthday" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" value="{{ request.user.email }}" class="form-control bg-transparent p-4 mb-3" placeholder="Email" />
+                            </div>
+                            <div class="form-group">
+                            <button id="update-profile-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
+                            </div>
+                        </form>
+                        <form id="password-form" method="POST" class="rl-style">
+                            <div class="form-group">
+                                <input type="password" name="old_password" class="form-control bg-transparent p-4 mb-3" placeholder="Old Password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="new_password" class="form-control bg-transparent p-4 mb-3" placeholder="New Password" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirm_password" class="form-control bg-transparent p-4 mb-3" placeholder="Confirm Password" />
+                            </div>
+                            <button id="update-password-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="submit">Update Password</button>
                         </form>
                     </div>
-                    <div>
-                        <button id="update-form-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
-                    </div>
-
+                
                     <h3>Your Orders</h3>
                     <ul>
                         {% for order in orders %}
