@@ -2,11 +2,35 @@
     width: 90%;
     margin-left: auto !important;
     margin-right: auto !important;
+    padding: 45px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .menu-products {
-    gap: 1rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    display: grid;
     margin-top: 2.5rem;
+}
+
+.product-title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 3rem !important;
+    color: #5d4037;
+}
+
+.product {
+    margin-bottom: 3rem !important;
+    align-items: center !important;
+    border: 2px solid #8b5e3c;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+    display: flex;
+    gap: 20px;
+}
+
+.product:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }

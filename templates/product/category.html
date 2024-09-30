@@ -1,0 +1,28 @@
+{% extends '../_base.html' %}
+{% load static %}
+{% block header %}{{ block.super }}
+{% endblock %}
+{% block content %}
+    <div  class="menu-container" style="width: 150vh; padding-left: 10vh">
+        {% for products in data %}
+            <div style="font-size: 3vh">
+                {% for parent in products.parent %}
+                    <a href="/api/category/{{ parent }}/">{{ parent }}</a> >
+                {% endfor %}
+                <a href="/api/category/{{ products.name }}/">{{ products.name }}</a>
+            </div>
+            <hr style="; margin-bottom: 30px">
+            {% for product in products.get_products %}
+                <a href="/api/product/{{ product.id }}" class="row align-items-center mb-5" style="">
+                    <div class="col-4 col-sm-3">
+                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="{{ product.images.0.src }}" alt="{{ product.images.0.alt }}">
+                        <h5 class="menu-price">${{ product.price }}</h5>
+                    </div>
+                    <div class="col-8 col-sm-9">
+                        <h4>{{ product.name }}</h4>
+                    </div>
+                </a>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock %}
