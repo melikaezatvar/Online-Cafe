@@ -1,8 +1,8 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Product, Image, Category
 
 
-class ProductImageSerializer(ModelSerializer):
+class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
@@ -10,7 +10,7 @@ class ProductImageSerializer(ModelSerializer):
                   'alt']
 
 
-class CategorySerializer(ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     parent = Category.objects.name
 
     class Meta:
@@ -21,10 +21,13 @@ class CategorySerializer(ModelSerializer):
                   'get_products']
 
 
-class ProductSerializer(ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
 
     images = ProductImageSerializer(many=True)
-    category = CategorySerializer()
+    category = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=Category.objects.all()
+    )
 
     class Meta:
         model = Product
@@ -34,7 +37,7 @@ class ProductSerializer(ModelSerializer):
                   'category',
                   'description',
                   'quantity',
-                  'images']
+                  'images',]
 
         extra_kwargs = {
             'description': {'required': False},

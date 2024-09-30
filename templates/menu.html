@@ -3,31 +3,18 @@
 {% block header %}{{ block.super }}
 {% endblock %}
 {% block content %}
-<div class="container-fluid pt-5">
-    <div class="container">
-        <div class="section-title">
-            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
+    <div class="container-fluid pt-5">
+        <div class="container">
+            <div class="section-title">
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
+            </div>
+        </div>
+        <div class="menu-container">
+            <hr>
+            <div id="menu-products" class="menu-products"></div>
         </div>
     </div>
-    <div class="menu-container">
-        <hr>
-        <div class="menu-products">
-            {% for product in data %}
-                <a href="/api/product/{{ product.id }}" class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3" style="height: 100px">
-                        {% if product.images %}
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="{{ product.images.0.src }}" alt="{{ product.images.0.alt }}">
-                        {% else %}
-                            <img class="w-100 rounded-circle mb-3 mb-sm-0" src="/media/product/images/site_image.jpeg" alt="no-image-available">
-                        {% endif %}
-                        <h5 class="menu-price">${{ product.price }}</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>{{ product.name }}</h4>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+{% endblock %}
+{% block extra_body %}
+    <script src="{% static 'js/products/show_products_by_category.js' %}"></script>
 {% endblock %}

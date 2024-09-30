@@ -27,11 +27,6 @@ class ProductAPIView(APIView):
             products = Product.objects.filter(pk=pk)
             template = 'product/product.html'
 
-        # Show Products By Category
-        elif name := kwargs.pop('name', None):
-            products = Product.objects.filter(category__name__icontains=name)
-            template = 'product/product.html'
-
         # Show All Products
         else:
             products = Product.objects.all()
@@ -63,7 +58,7 @@ class ProductAPIView(APIView):
         return Response({"message": "Product deleted successfully"}, status=status.HTTP_200_OK)
 
 
-class CategoryNavAPIView(ListAPIView):
+class CategoryProductsAPIView(ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
