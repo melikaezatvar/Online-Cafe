@@ -1,6 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import TemplateHTMLRenderer
@@ -8,7 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from menu.models import Product
 from .models import CustomerProfile
-from .serializers import UserSerializer, LoginSerializer, UserProfileSerializer, UserPasswordSerializer
+from .serializers import UserSerializer, LoginSerializer, UserProfileSerializer, UserPasswordSerializer, \
+    FavoriteProductSerializer
 
 
 class RegisterView(APIView):
@@ -52,7 +53,7 @@ class LogoutView(APIView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return redirect('home')
-        # return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 class ProfileView(LoginRequiredMixin, APIView):
@@ -69,7 +70,6 @@ class ProfileView(LoginRequiredMixin, APIView):
 
         if serializer.is_valid():
             serializer.save()
-            # login(request, user)
             return Response({'message': 'Profile updated successfully!'}, template_name='account/profile.html')
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, template_name='account/profile.html')
@@ -88,29 +88,25 @@ class ResetPasswordView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, template_name='account/profile.html')
 
 
-class FavoriteProductView(APIView):
+class FavoriteProductAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+        if product in request.user.favorite.all():
+            # Remove from favorites
+            request.user.favorite.remove(product)
+            return Response({"message": "Product removed from favorites"}, status=status.HTTP_200_OK)
+        else:
+            # Add to favorites
+            request.user.favorite.add(product)
+            return Response({"message": "Product added to favorites"}, status=status.HTTP_201_CREATED)
+
+
+class FavoriteProductsListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user = request.user
-        favorite_products = user.favorite.all()
-        return Response({"favorite_products": favorite_products},
-                        status=status.HTTP_200_OK)
-
-    def post(self, request, product_id):
-        user = request.user
-
-        try:
-            product = Product.objects.get(id=product_id)
-            if product in user.favorite.all():
-                # Remove Product
-                user.favorite.remove(product)
-                return Response({"message": "Product removed from favorites."},
-                                status=status.HTTP_200_OK)
-            else:
-                # Add Product
-                user.favorite.add(product)
-                return Response({"message": "Product added to favorites."}, status=status.HTTP_200_OK)
-        except Product.DoesNotExist:
-            return Response({"error": "Product not found."},
-                            status=status.HTTP_404_NOT_FOUND)
+        favorite_products = request.user.favorite.all()
+        serializer = FavoriteProductSerializer(favorite_products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
