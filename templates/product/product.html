@@ -7,7 +7,7 @@
         <div class="product-show">
             <div class="product-image" style="height: 308px">
                 <h5 class="menu-price">${{ product.price }}</h5>
-                {% if  product.images %}
+                {% if not product.images %}
                     <img id="main-image" class="product-main-image" src="/media/product/images/site_image.jpeg" style="height: 308px; width: 308px" alt="No Image Available">
                 	{% else %}
                     <img id="main-image" class="product-main-image" src="{{ product.images.0.src }}" alt="{{ product.images.0.alt }}">
