@@ -1,0 +1,140 @@
+.product-show {
+    --tw-border-opacity: 1;
+    border: 2px solid #8b5e3c;
+    border-radius: 1.5rem;
+    display: flex;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 3rem !important;
+    width: 75% !important;
+    unicode-bidi: isolate;
+    background-color: #fff;
+
+}
+
+.product-image {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    position: relative;
+    display: grid;
+}
+
+.product-main-image {
+    width: 220px;
+    height: 220px;
+    margin-bottom: 0 !important;
+    border-radius: 50% !important;
+    max-width: 100%;
+    display: block;
+    vertical-align: middle;
+    border-style: none;
+}
+
+.product-images {
+    gap: 0.5rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 25vh;
+    display: grid;
+    margin-top: 3rem !important;
+}
+
+.product-sub-images {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+    display: block;
+    vertical-align: middle;
+    border-style: none;
+}
+
+.hr-product {
+    height: 0;
+    color: inherit;
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+    margin: 1rem !important;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: content-box;
+    overflow: visible;
+}
+
+.product-description {
+    width: 95vh;
+    margin-left: 5%;
+}
+
+.product-items {
+    align-items: center;
+    gap: 1.25rem;
+    display: flex;
+    margin-top: 5px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.product-cart-item {
+    --tw-text-opacity: 1;
+    border: 2px #fdf9f0 solid;
+    color: rgb(21 128 61 / var(--tw-text-opacity));
+    font-size: 30px;
+    cursor: pointer;
+    padding: 0.5rem !important;
+    border-radius: 1rem !important;
+    font-family: "Font Awesome 6 Free", serif;
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+.product-cart-item:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(220 252 231 / var(--tw-bg-opacity));
+    border: 2px rgb(21 128 61 / var(--tw-text-opacity)) solid;
+}
+
+.product-cart-item:active {
+    --tw-bg-opacity: 1;
+    background-color: rgb(219 234 254 / var(--tw-bg-opacity));
+}
+
+.product-favorite-item {
+    --tw-text-opacity: 1;
+    color: rgb(196, 8, 8);
+    font-size: 35px;
+    cursor: pointer;
+    font-family: "Font Awesome 6 Free", serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    position: absolute;
+}
+
+.quantity-input-simple {
+    width: 60px;
+    height: 40px;
+    padding: 5px;
+    font-size: 18px;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #FFF8DC; /* رنگ روشن */
+    color: #8B4513;
+}
+
+.quantity-input-simple:focus {
+    border-color: #A0522D;
+    outline: none;
+}

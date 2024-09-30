@@ -1,17 +1,33 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from .models import Product, Image, Category
 
 
-class ProductImageSerializer(ModelSerializer):
+class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ['src']
+        fields = ['src',
+                  'alt']
 
 
-class ProductSerializer(ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
+    parent = Category.objects.name
+
+    class Meta:
+        model = Category
+        fields = ['name',
+                  'parent',
+                  'get_childes',
+                  'get_products']
+
+
+class ProductSerializer(serializers.ModelSerializer):
 
     images = ProductImageSerializer(many=True)
+    category = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=Category.objects.all()
+    )
 
     class Meta:
         model = Product
@@ -21,7 +37,7 @@ class ProductSerializer(ModelSerializer):
                   'category',
                   'description',
                   'quantity',
-                  'images']
+                  'images',]
 
         extra_kwargs = {
             'description': {'required': False},
@@ -44,12 +60,4 @@ class ProductSerializer(ModelSerializer):
         Image.objects.bulk_create(images)
 
 
-class CategorySerializer(ModelSerializer):
-    parent = Category.objects.name
 
-    class Meta:
-        model = Category
-        fields = ['name',
-                  'parent',
-                  'get_childes',
-                  'get_products']
