@@ -10,7 +10,7 @@
 
                 <div class="col-lg-6 py-0 py-lg-5">
                     <div>
-                        <form id="profile-form" method="POST" class="rl-style">
+                        <form id="profile-form" method="POST" action="/api/profile/" class="rl-style">
                             {% csrf_token %}
                             <div class="form-group">
                                 <input type="text" name="username" value="{{ request.user.username }}" class="form-control bg-transparent p-4 mb-3" placeholder="Username" disabled/>
@@ -34,7 +34,7 @@
                             <button id="update-profile-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
                             </div>
                         </form>
-                        <form id="password-form" method="POST" class="rl-style">
+                        <form id="password-form" method="POST" action="/api/profile/" class="rl-style">
                             <div class="form-group">
                                 <input type="password" name="old_password" class="form-control bg-transparent p-4 mb-3" placeholder="Old Password" />
                             </div>
@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <input type="password" name="confirm_password" class="form-control bg-transparent p-4 mb-3" placeholder="Confirm Password" />
                             </div>
-                            <button id="update-password-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="submit">Update Password</button>
+                            <button id="update-password-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update Password</button>
                         </form>
                     </div>
                 
@@ -76,4 +76,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block extra_body %}
+	<script src="{% static 'js/account/profile.js' %}"></script>
 {% endblock %}

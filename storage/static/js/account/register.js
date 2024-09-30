@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
              if (res.ok) {
                  alert('Registration successful! Redirecting...')
                  window.location.assign('/api/home/')
-             }
+             } else { alert('Error')}
          }).catch(() => alert('Unknown Error'))
 
     });
