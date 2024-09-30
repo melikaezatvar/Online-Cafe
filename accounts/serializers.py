@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import check_password
 from django.core.exceptions import ValidationError
+from menu.models import Product
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import CustomerProfile
@@ -82,4 +83,14 @@ class UserPasswordSerializer(serializers.ModelSerializer):
             raise ValidationError('all fields are required!')
 
 
+class FavoriteProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'name', 'price', 'images']
 
+    images = serializers.SerializerMethodField()
+
+    def get_images(self, obj):
+        if obj.images.exists():
+            return obj.images.first().src
+        return None
