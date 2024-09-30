@@ -25,10 +25,11 @@
         </form>
     </div>
     <div class="auth-form">
-        <button name="login-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Login</button>
+        <button id="login-form-btn" name="login-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Login</button>
         <button id="register-form-btn" name="register-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Register</button>
     </div>
 {% endblock %}
 {% block extra_body %}
-    <script src="{% static 'js/account/register.js' %}"></script>
+    <script src="{% static 'js/account/register.js' %}"></script>  
+    <script src="{% static 'js/account/login.js' %}"></script>
 {% endblock %}
