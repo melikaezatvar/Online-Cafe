@@ -1,82 +1,96 @@
 {% extends '_base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">{{ request.user.username }}'s Profile</h4>
-            </div>
-            <div class="row">
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="section-title text-center">
+            <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">{{ request.user.username }}'s Profile</h4>
+            <hr style="border-top: 2px solid lightgray;">
+        </div>
 
-                <div class="col-lg-6 py-0 py-lg-5">
-                    <div>
-                        <form id="profile-form" method="POST" action="/api/profile/" class="rl-style">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <input type="text" name="username" value="{{ request.user.username }}" class="form-control bg-transparent p-4 mb-3" placeholder="Username" disabled/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="first_name" value="{{ request.user.first_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="First Name" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="last_name" value="{{ request.user.last_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="Last Name" />
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="phone_number" value="{{ request.user.phone_number }}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
-                            </div>
-                            <div class="form-group">
-                                <input type="date" name="birthday" value="{{ request.user.birthday }}" class="form-control bg-transparent p-4 mb-3" placeholder="Birthday" />
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" value="{{ request.user.email }}" class="form-control bg-transparent p-4 mb-3" placeholder="Email" />
-                            </div>
-                            <div class="form-group">
-                            <button id="update-profile-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
-                            </div>
-                        </form>
-                        <form id="password-form" method="POST" action="/api/profile/" class="rl-style">
-                            <div class="form-group">
-                                <input type="password" name="old_password" class="form-control bg-transparent p-4 mb-3" placeholder="Old Password" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="new_password" class="form-control bg-transparent p-4 mb-3" placeholder="New Password" />
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="confirm_password" class="form-control bg-transparent p-4 mb-3" placeholder="Confirm Password" />
-                            </div>
-                            <button id="update-password-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update Password</button>
-                        </form>
+        <div class="profile-nav text-center">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" id="personal-info-tab" href="#" onclick="showSection('personal-info')">Personal Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="favorite-list-tab" href="#" onclick="showSection('favorite-list')">My Favorite List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="orders-tab" href="#" onclick="showSection('orders')">My Orders</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="row py-4" id="personal-info">
+            <div class="col-lg-6 py-0 py-lg-5">
+                <form id="profile-form" method="POST" action="/api/profile/" class="rl-style">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" value="{{ request.user.username }}" class="form-control bg-transparent p-4 mb-3" placeholder="Username" disabled/>
                     </div>
-                
-                    <h3>Your Orders</h3>
-                    <ul>
-                        {% for order in orders %}
-                        <li>
-                            Order #{{ order.id }} - Status: {{ order.status }} - Total Price: {{ order.get_total_price }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                
-                    <h3>Favorite Items</h3>
-                    <ul id="favorite-list">
-                        {% for product in favorite_products %}
-                        <li id="favorite-item-{{ product.id }}">
-                            {{ product.name }} - Price: ${{ product.price }}
-                            <a href="" class="remove-favorite-btn font-weight-bold py-2 px-4 mt-2"  data-id="{{ product.id }}">Remove from Favorites</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            
-                <div class="col-lg-6 py-5 py-lg-0" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100" src="{% static 'img/about.png' %}" style="object-fit: cover;">
+                    <div class="form-group">
+                        <input type="text" name="first_name" value="{{ request.user.first_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="First Name" />
                     </div>
-                </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" value="{{ request.user.last_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="Last Name" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="phone_number" value="{{ request.user.phone_number }}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="birthday" value="{{ request.user.birthday }}" class="form-control bg-transparent p-4 mb-3" placeholder="Birthday" />
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" value="{{ request.user.email }}" class="form-control bg-transparent p-4 mb-3" placeholder="Email" />
+                    </div>
+                    <div class="form-group">
+                        <button id="update-profile-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update</button>
+                    </div>
+                </form>
+                <form id="password-form" method="POST" action="/api/profile/" class="rl-style">
+                    <div class="form-group">
+                        <input type="password" name="old_password" class="form-control bg-transparent p-4 mb-3" placeholder="Old Password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="new_password" class="form-control bg-transparent p-4 mb-3" placeholder="New Password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm_password" class="form-control bg-transparent p-4 mb-3" placeholder="Confirm Password" />
+                    </div>
+                    <button id="update-password-btn" class="btn btn-primary font-weight-bold py-3 px-5" type="button">Update Password</button>
+                </form>
+            </div>
+            <div class="col-lg-6 py-5">
+                <img class="img-fluid" src="{% static 'img/3076404.png' %}" alt="Profile Image" style="object-fit: cover; width: 100%; height: auto;">
+            </div>
+        </div>
+        
+        <div class="row py-4 d-none" id="favorite-list">
+            <div class="col-lg-6 py-0 py-lg-5">
+                <h3>Favorite Items</h3>
+                <ul id="favorite-items-list"></ul> 
+            </div>
+            <div class="col-lg-6 py-5">
+                <img class="img-fluid" src="{% static 'img/favorite3.png' %}" alt="Favorite Image" style="object-fit: cover; width: 100%; height: auto;">
+            </div>
+        </div>
+        
+        
+        <div class="row py-4 d-none" id="orders">
+            <div class="col-lg-6 py-0 py-lg-5">
+                <h3>Your Orders</h3>
+                <ul id="orders-list"></ul>
+            </div>
+            <div class="col-lg-6 py-5">
+                <img class="img-fluid" src="{% static 'img/orders.png' %}" alt="Order Image" style="object-fit: cover; width: 100%; height: auto;">
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
+
 {% block extra_body %}
-	<script src="{% static 'js/account/profile.js' %}"></script>
+<script src="{% static 'js/account/favorites.js' %}"></script>
+<script src="{% static 'js/account/orders.js' %}"></script>
 {% endblock %}
