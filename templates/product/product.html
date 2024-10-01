@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
     {% for product in data %}
+        <input id="product-id" value="{{ product.id }}" hidden="hidden">
         <div class="product-show">
             <div class="product-image" style="height: 308px">
                 <h5 class="menu-price">${{ product.price }}</h5>
@@ -31,7 +32,7 @@
                     <p class="p-3">{{ product.description }}</p>
                 </div>
             </div>
-            <i id="p-favorite" onclick="changeFavoriteStatus()" class="fa-regular fa-heart product-favorite-item absolute"></i>
+            <i id="p-favorite" class="product-favorite-item absolute"></i>
             <div style="align-self: flex-end; flex-direction: column; display: flex">
                 <div class="product-items">
                     <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>

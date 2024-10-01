@@ -92,7 +92,12 @@ class FavoriteProductAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        favorite_products = request.user.favorite.all()
+        if request.user.favorite.filter(id=kwargs.get('product_id')):
+            return Response(status=status.HTTP_202_ACCEPTED)
+
+        else:
+            favorite_products = request.user.favorite.all()
+
         serializer = ProductSerializer(favorite_products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
