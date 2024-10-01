@@ -7,9 +7,9 @@
         {% for products in data %}
             <div style="font-size: 3vh">
                 {% for parent in products.parent %}
-                    <a href="/api/category/{{ parent }}/">{{ parent }}</a> >
+                    <a href="/api/category/{{ parent }}/">{{ parent|capfirst }}</a> >
                 {% endfor %}
-                <a href="/api/category/{{ products.name }}/">{{ products.name }}</a>
+                <a href="/api/category/{{ products.name }}/">{{ products.name|capfirst }}</a>
             </div>
             <hr style="; margin-bottom: 30px">
             {% for product in products.get_products %}
@@ -23,7 +23,7 @@
                         <h5 class="menu-price">${{ product.price }}</h5>
                     </div>
                     <div class="col-8 col-sm-9">
-                        <h4>{{ product.name }}</h4>
+                        <h4>{{ product.name|capfirst }}</h4>
                     </div>
                 </a>
             {% endfor %}

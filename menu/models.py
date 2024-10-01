@@ -53,8 +53,11 @@ class Product(TimeStampMixin, AbstractDeleteModel):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    description = models.TextField(null=True, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True)
+
+    @property
+    def description(self):
+        return self.details.values_list('attribute_name', 'attribute_value')
 
     def __str__(self):
         return self.name
@@ -67,3 +70,12 @@ class Image(TimeStampMixin, AbstractDeleteModel):
 
     def __str__(self):
         return self.src.url
+
+
+class ProductDetail(models.Model):
+    product = models.ForeignKey(Product, related_name='details', on_delete=models.CASCADE)
+    attribute_name = models.CharField(max_length=100)
+    attribute_value = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.attribute_name}: {self.attribute_value}'
