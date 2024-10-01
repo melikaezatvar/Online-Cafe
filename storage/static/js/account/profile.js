@@ -1,9 +1,20 @@
-document.addEventListener('DOMContentLoaded', function (e) {
-    e.preventDefault();
+function showSection(section) {
+        const sections = ['personal-info', 'favorite-list', 'orders'];
+        sections.forEach(s => {
+            document.getElementById(s).classList.add('d-none');
+        });
+        document.getElementById(section).classList.remove('d-none');
 
+        const tabs = ['personal-info-tab', 'favorite-list-tab', 'orders-tab'];
+        tabs.forEach(tab => {
+            document.getElementById(tab).classList.remove('active');
+        });
+        document.getElementById(section + '-tab').classList.add('active');
+    }
+
+document.addEventListener('DOMContentLoaded', function () {
     const updatePassword = document.getElementById('update-password-btn');
     const updateProfile = document.getElementById('update-profile-btn');
-
 
     updatePassword.addEventListener('click', (event) => {
         event.preventDefault();
@@ -11,15 +22,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         fetch('/api/profile/resetpass/', {
             method: 'POST',
-            headers:{
-            'X-CSRFToken': document.querySelector(`input[name="csrfmiddlewaretoken"]`).value,
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
             },
             body: data
         }).then(res => {
             if (res.ok) {
                 alert('Updated successfully! Redirecting...');
                 window.location.reload();
-            } else { alert('Error')}
+            } else {
+                alert('Error');
+            }
         }).catch(() => alert('Error updating password'));
     });
 
@@ -29,15 +42,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         fetch('/api/profile/', {
             method: 'POST',
-            headers:{
-            'X-CSRFToken': document.querySelector(`input[name="csrfmiddlewaretoken"]`).value,
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
             },
             body: data
         }).then(res => {
             if (res.ok) {
                 alert('Profile updated successfully!');
                 window.location.reload();
-            } else { alert('Error')}
+            } else {
+                alert('Error');
+            }
         }).catch(() => alert('Error updating profile'));
     });
 });
