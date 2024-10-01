@@ -23,13 +23,18 @@
                 <div>
                     <div>
                         {% for parent in product.category.parent %}
-                            <a href="/api/category/{{ parent }}/">{{ parent }}</a> >
+                            <a href="/api/category/{{ parent }}/">{{ parent|capfirst }}</a> >
                         {% endfor %}
-                        <a href="/api/category/{{ product.category.name }}/">{{ product.category.name }}</a>
+                        <a href="/api/category/{{ product.category.name }}/">{{ product.category.name|capfirst }}</a>
                     </div>
-                    <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name }}</h4>
+                    <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name|capfirst }}</h4>
                     <hr class="hr-product">
-                    <p class="p-3">{{ product.description }}</p>
+                    {% for detail in product.description %}
+                        <div style="display: flex">
+                            <p class="pt-1 pl-3" style="font-weight: bold">{{ detail.0|capfirst }}:</p>
+                            <p class="pt-1 pl-3">{{ detail.1 }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <i id="p-favorite" class="product-favorite-item absolute"></i>
