@@ -1,3 +1,5 @@
+from accounts.models import CustomerProfile
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from core.models import TimeStampMixin, LogicalMixin
 
@@ -59,8 +61,27 @@ class Product(TimeStampMixin, LogicalMixin):
     def description(self):
         return self.details.values_list('attribute_name', 'attribute_value')
 
+    @property
+    def average_rating(self):
+        ratings = self.ratings.values_list('rate', flat=True)
+        if ratings.exists():
+            return f"{sum(ratings) / len(ratings)}"
+        return "No one has rated this product"
+
     def __str__(self):
         return self.name
+
+
+class Rating(TimeStampMixin):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE, related_name='user_ratings')
+    rate = models.PositiveIntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+
+    class Meta:
+        unique_together = ('product', 'user')
+
+    def __str__(self):
+        return f"{self.user} rated {self.product} with {self.rate} stars"
 
 
 class Image(TimeStampMixin, LogicalMixin):
