@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (product.images.length) {
                             menuEl.querySelector('#p-'+product.id).innerHTML += `
-                            <img class="rounded-circle mb-3 mb-sm-0" src="${product.images[0].src}" alt="${product.images[0].alt}" style="max-height: 20vh">`
+                            <img class="rounded-circle mb-3 mb-sm-0" src="${product.images[0].src}" alt="${product.images[0].alt}" style="height: 20vh; width: 20vh">`
                         } else {
                             menuEl.querySelector('#p-'+product.id).innerHTML += `
-                            <img class="rounded-circle mb-3 mb-sm-0" src="/media/product/images/site_image.jpeg" alt="no-image-available" style="max-height: 20vh">`
+                            <img class="rounded-circle mb-3 mb-sm-0" src="/media/product/images/site_image.jpeg" alt="no-image-available" style="height: 20vh; width: 20vh">`
                         }
                     })
                 }

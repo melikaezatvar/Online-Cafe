@@ -1,8 +1,8 @@
 from django.db import models
-from core.models import TimeStampMixin, AbstractDeleteModel
+from core.models import TimeStampMixin, LogicalMixin
 
 
-class Category(TimeStampMixin, AbstractDeleteModel):
+class Category(TimeStampMixin, LogicalMixin):
     name = models.CharField(max_length=255)
     _parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childes')
 
@@ -49,21 +49,33 @@ class Category(TimeStampMixin, AbstractDeleteModel):
         return self.name
 
 
-class Product(TimeStampMixin, AbstractDeleteModel):
+class Product(TimeStampMixin, LogicalMixin):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    description = models.TextField(null=True, blank=True)
     quantity = models.PositiveIntegerField(null=True, blank=True)
+
+    @property
+    def description(self):
+        return self.details.values_list('attribute_name', 'attribute_value')
 
     def __str__(self):
         return self.name
 
 
-class Image(TimeStampMixin, AbstractDeleteModel):
+class Image(TimeStampMixin, LogicalMixin):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     src = models.ImageField(upload_to='product/images/', null=True, blank=True)
     alt = models.TextField(default=product.name, null=True, blank=True)
 
     def __str__(self):
         return self.src.url
+
+
+class ProductDetail(models.Model):
+    product = models.ForeignKey(Product, related_name='details', on_delete=models.CASCADE)
+    attribute_name = models.CharField(max_length=100)
+    attribute_value = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.attribute_name}: {self.attribute_value}'
