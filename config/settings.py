@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -149,3 +151,66 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomerProfile'
 LOGIN_URL = '/api/login/'
 LOGOUT_URL = '/api/home/'
+
+
+JAZZMIN_SETTINGS = {
+    "copyright": False,
+    "site_title": "Online_cafe",
+    "site_header": "Cafe",
+    "site_brand": "Starbocks",
+    "site_logo": "storage/static/img/logo.png",
+    "site_logo_classes": "img-circle",
+    "site_icon": "storage/static/img/logo.png",
+    "welcome_sign": "welcome to managment panel",
+    "search_model": "accounts.CustomerProfile",
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["CustomerProfile.is_staff"]},
+        {"name": "Profile", "url": "profile", "new_window": True},
+        {"app": "accounts"},
+    ],
+    "hide_apps": ["accounts"],
+    "hide_models": ["accounts.CustomerProfile"],
+    "usermenu_links": [
+        {"name": "Profile", "url": "profile"},
+        {"name": "Settings", "url": "settings"},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "order_with_respect_to": ["accounts", "core"],
+    "related_modal_active": True,
+    # "show_ui_builder": True,
+}
+
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": True,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-warning",
+    "accent": "accent-info",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-warning",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "sketchy",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}
