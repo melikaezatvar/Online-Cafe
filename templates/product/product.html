@@ -5,7 +5,7 @@
 {% block content %}
     {% for product in data %}
         <input id="product-id" value="{{ product.id }}" hidden="hidden">
-        <div class="product-show">
+        <div class="product-show" style="position: relative">
             <div class="product-image" style="height: 308px">
                 <h5 class="menu-price">${{ product.price }}</h5>
                 {% if not product.images %}
@@ -27,7 +27,16 @@
                         {% endfor %}
                         <a href="/api/category/{{ product.category.name }}/">{{ product.category.name|capfirst }}</a>
                     </div>
-                    <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name|capfirst }}</h4>
+                    <div style="justify-content: space-between; align-items: center; display: flex">
+                        <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name|capfirst }}</h4>
+                        <div onchange="changeRate()" class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                        </div>
+                    </div>
                     <hr class="hr-product">
                     {% for detail in product.description %}
                         <div style="display: flex">
@@ -46,4 +55,7 @@
             </div>
         </div>
     {% endfor %}
+{% endblock %}
+{% block extra_body %}
+    <script src="{% static 'js/products/rating.js' %}"></script>
 {% endblock %}

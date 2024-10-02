@@ -1,0 +1,31 @@
+.star-rating {
+    cursor: pointer;
+    direction: rtl;
+    display: inline-block;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2rem;
+    color: gray;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.star-rating label:before {
+    content: '★';
+}
+
+.star-rating input:checked ~ label {
+    color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: gold;
+}
