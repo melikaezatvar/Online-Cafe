@@ -19,8 +19,8 @@
                     </div>
 
                     {% if request.user.is_authenticated %}
-                        <a href="/api/register/" class="nav-item nav-link">Profile</a>
-                        <a href="/api/register/" class="nav-item nav-link">Logout</a>
+                        <a href="/api/profile/" class="nav-item nav-link">Profile</a>
+                        <a onclick="Logout()" class="nav-item nav-link">Logout</a>
                     {% else %}
                         <a href="/api/register/" class="nav-item nav-link">Sign-Up</a>
                     {% endif %}
