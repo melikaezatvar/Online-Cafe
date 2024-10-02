@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # pip install django-jazzmin :
     'jazzmin',
+
     # default Apps :
     'django.contrib.admin',
     'django.contrib.auth',
@@ -169,7 +170,7 @@ JAZZMIN_SETTINGS = {
     "hide_models": ["accounts.CustomerProfile"],
     "usermenu_links": [
         {"name": "Profile", "url": "profile"},
-        {"name": "Setting", "url": "settings"},
+        {"name": "Settings", "url": "settings"},
     ],
     "show_sidebar": True,
     "navigation_expanded": True,
@@ -211,3 +212,4 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False
 }
+
