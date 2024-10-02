@@ -1,8 +1,8 @@
 from django.db import models
-from core.models import TimeStampMixin, AbstractDeleteModel
+from core.models import TimeStampMixin, LogicalMixin
 
 
-class Category(TimeStampMixin, AbstractDeleteModel):
+class Category(TimeStampMixin, LogicalMixin):
     name = models.CharField(max_length=255)
     _parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='childes')
 
@@ -49,7 +49,7 @@ class Category(TimeStampMixin, AbstractDeleteModel):
         return self.name
 
 
-class Product(TimeStampMixin, AbstractDeleteModel):
+class Product(TimeStampMixin, LogicalMixin):
     name = models.CharField(max_length=255)
     price = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
@@ -63,7 +63,7 @@ class Product(TimeStampMixin, AbstractDeleteModel):
         return self.name
 
 
-class Image(TimeStampMixin, AbstractDeleteModel):
+class Image(TimeStampMixin, LogicalMixin):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
     src = models.ImageField(upload_to='product/images/', null=True, blank=True)
     alt = models.TextField(default=product.name, null=True, blank=True)
