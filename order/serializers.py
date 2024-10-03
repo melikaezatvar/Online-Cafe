@@ -22,6 +22,7 @@ class OrderItemUpdateSerializer(serializers.ModelSerializer):
         return value
 
 
+
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
     user = serializers.StringRelatedField()
