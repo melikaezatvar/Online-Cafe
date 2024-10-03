@@ -3,6 +3,9 @@
 {% block header %}{{ block.super }}
 {% endblock %}
 {% block content %}
+    <a href="javascript:history.back()" class="nav-item nav-link" style="font-size: 30px">
+        <i class="fa-regular fa-hand-point-left"></i> Back
+    </a>
     {% for product in data %}
         <input id="product-id" value="{{ product.id }}" hidden="hidden">
         <div class="product-show" style="position: relative">
@@ -37,6 +40,7 @@
                                 <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
                                 <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
                             </div>
+                            <script src="{% static 'js/products/rating.js' %}"></script>
                             {% else %}
                             <div class="star-off-container logged-out" tabindex="0">
                                 <div class="star-off">
@@ -63,11 +67,11 @@
             {% if request.user.is_authenticated %}
                 <i id="p-favorite" class="product-favorite-item absolute"></i>
                 <script src="{% static 'js/products/product_utils.js' %}"></script>
-{#                {% else %}#}
-{#                <div class="favorite-container">#}
-{#                    <i id="p-favorite" class="product-favorite-item absolute"></i>#}
-{#                    <div class="login-tooltip2">This activity requires <a href="/api/register/">Login</a></div>#}
-{#                </div>#}
+                {% else %}
+                <div class="favorite-container">
+                    <i id="p-favorite" class="fa-heart fa-regular product-favorite-item absolute"></i>
+                    <div class="login-tooltip2">This activity requires <a href="/api/register/">Login</a></div>
+                </div>
             {% endif %} 
             <div style="align-self: flex-end; flex-direction: column; display: flex">
                 <div class="product-items">
@@ -78,6 +82,4 @@
         </div>
     {% endfor %}
 {% endblock %}
-{% block extra_body %}
-    <script src="{% static 'js/products/rating.js' %}"></script>
-{% endblock %}
+
