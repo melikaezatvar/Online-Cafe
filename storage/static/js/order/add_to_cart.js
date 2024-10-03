@@ -1,11 +1,11 @@
 document.getElementById('add-to-cart-button').addEventListener('click', function() {
-    console.log(1)
+    // console.log(1)
     const productId = document.getElementById('product-id').value;
     // const quantity = document.getElementById('quantity').value;
     const quantity= document.querySelector('.quantity-input-simple').value;  // Get the value (it will be a string initially)
-    console.log(2)
+    // console.log(2)
 
-    fetch('/api/add-to-cart/', {
+    fetch('/api/order/add-to-cart/', {
 
         method: 'POST',
         headers: {
@@ -21,6 +21,7 @@ document.getElementById('add-to-cart-button').addEventListener('click', function
     .then(response => response.json())
     .then(data => {
         console.log('Product added to cart:', data);
+         alert("Product added to cart!");
     })
     .catch(error => {
         console.error('Error:', error);
