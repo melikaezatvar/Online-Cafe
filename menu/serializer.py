@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, Image, Category
+from .models import Product, Image, Category, Rating
+from accounts.models import CustomerProfile
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -37,7 +38,8 @@ class ProductSerializer(serializers.ModelSerializer):
                   'category',
                   'description',
                   'quantity',
-                  'images',]
+                  'images',
+                  'average_rating',]
 
         extra_kwargs = {
             'description': {'required': False},
@@ -60,4 +62,15 @@ class ProductSerializer(serializers.ModelSerializer):
     #     Image.objects.bulk_create(images)
 
 
+class RatingSerializer(serializers.ModelSerializer):
+    product = serializers.SlugRelatedField(
+        slug_field='average_rating',
+        queryset=Product.objects.all()
+    )
 
+    class Meta:
+        model = Rating
+        fields = ['id',
+                  'product',
+                  'user',
+                  'rate',]

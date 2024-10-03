@@ -69,7 +69,7 @@
         <div class="row py-4 d-none" id="favorite-list">
             <div class="col-lg-6 py-0 py-lg-5">
                 <h3>Favorite Items</h3>
-                <ul id="favorite-items-list" style="list-style-type: none"></ul> 
+                <ul id="favorite-items-list" style="list-style-type: none"></ul>
             </div>
             <div class="col-lg-6 py-5">
                 <img class="img-fluid" src="{% static 'img/favorite3.png' %}" alt="Favorite Image" style="object-fit: cover; width: 100%; height: auto;">
@@ -91,6 +91,9 @@
 {% endblock %}
 
 {% block extra_body %}
+<script src="{% static 'js/account/profile.js' %}"></script>
 <script src="{% static 'js/account/favorites.js' %}"></script>
 <script src="{% static 'js/account/orders.js' %}"></script>
+
+
 {% endblock %}

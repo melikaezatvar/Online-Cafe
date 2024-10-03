@@ -33,10 +33,9 @@
         <script src="{% static 'js/main.js' %}"></script>
         <script src="{% static 'js/products/header_category.js' %}"></script>
         <script src="{% static 'js/products/product_images.js' %}"></script>
-       <script src="{% static 'js/products/product_utils.js' %}"></script>
-        <script src="{% static 'js/account/profile.js' %}"></script>
-        <script src="{% static 'js/account/logout.js' %}"></script>
-
+        {% if request.user.is_authenticated %}
+            <script src="{% static 'js/account/logout.js' %}"></script>
+        {% endif %}
         {% block extra_body %}{% endblock %}
 
     </body>
