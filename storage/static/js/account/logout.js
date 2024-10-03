@@ -6,7 +6,6 @@ function Logout() {
         }
         )
              .then(res => {
-                 console.log(res)
              if (res.ok) {
                  alert('logout successful! Redirecting...')
                  window.location.reload()
