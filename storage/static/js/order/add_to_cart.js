@@ -1,3 +1,37 @@
+document.getElementById('add-to-cart-button').addEventListener('click', function() {
+    console.log(1)
+    const productId = document.getElementById('product-id').value;
+    // const quantity = document.getElementById('quantity').value;
+    const quantity= document.querySelector('.quantity-input-simple').value;  // Get the value (it will be a string initially)
+    console.log(2)
+
+    fetch('/api/add-to-cart/', {
+
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector(`input[name="csrfmiddlewaretoken"]`).value,
+            // 'X-CSRFToken': csrftoken,  // توکن CSRF باید برای امنیت اضافه شود
+        },
+        body: JSON.stringify({
+            product_id: productId,
+            quantity: quantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Product added to cart:', data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+
+
+
+
 // // تابعی که زمانی که کاربر روی آیکون سبد خرید کلیک می‌کند فراخوانی می‌شود
 // function addToCart(productId) {
 //     // آدرس API که در views.py ساخته شده
