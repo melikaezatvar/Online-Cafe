@@ -21,6 +21,7 @@
     content: '★';
 }
 
+
 .star-rating input:checked ~ label {
     color: gold;
 }
@@ -28,4 +29,62 @@
 .star-rating label:hover,
 .star-rating label:hover ~ label {
     color: gold;
+}
+
+.star-off-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    direction: rtl;
+    outline: none;
+}
+
+.star-off {
+    cursor: pointer;
+    direction: rtl;
+    display: inline-block;
+}
+
+.star-off input {
+    display: none;
+}
+
+.star-off label {
+    font-size: 2rem;
+    color: gray;
+    padding: 0;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.star-off label:before {
+    content: '★';
+}
+
+.login-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.star-off-container.logged-out:hover .login-tooltip,
+.star-off-container.logged-out:focus-within .login-tooltip {
+    display: block;
+    opacity: 1;
+}
+
+.star-off-container:focus-within {
+    outline: none;
 }

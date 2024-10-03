@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import status
 from rest_framework.generics import ListAPIView
 from .models import Product, Category, Rating
@@ -85,13 +85,17 @@ class RatingAPIView(APIView):
         if is_rating.exists():
             serializer = RatingSerializer(is_rating, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        serializer = RatingSerializer(Rating.objects.filter(product=product))
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = RatingSerializer(Rating.objects.filter(product=product).first())
+        return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request, *args, **kwargs):
         product = get_object_or_404(Product, id=kwargs.get('product_id'))
         user = request.user
         rate = kwargs.get('rate')
-        Rating.objects.get_or_create(product=product, user=user, rate=rate)
+        if (rate_object := Rating.objects.filter(product=product, user=user)).exists():
+            rate_object.update(rate=rate)
+            Rating.objects.get(product=product, user=user).save(force_update='update_at')
+            return Response(status=status.HTTP_201_CREATED)
+        Rating.objects.create(product=product, user=user, rate=rate)
         return Response(status=status.HTTP_201_CREATED)
 
