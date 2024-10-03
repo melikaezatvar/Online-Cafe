@@ -29,13 +29,27 @@
                     </div>
                     <div style="justify-content: space-between; align-items: center; display: flex">
                         <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name|capfirst }}</h4>
-                        <div onchange="changeRate()" class="star-rating">
-                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
-                        </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                            </div>
+                            {% else %}
+                            <div class="star-off-container logged-out" tabindex="0">
+                                <div class="star-off">
+                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                </div>
+                                <div class="login-tooltip">This activity requires <a href="/api/register/">Login</a></div>
+                            </div>
+
+                        {% endif %}
                     </div>
                     <hr class="hr-product">
                     {% for detail in product.description %}
@@ -46,7 +60,15 @@
                     {% endfor %}
                 </div>
             </div>
-            <i id="p-favorite" class="product-favorite-item absolute"></i>
+            {% if request.user.is_authenticated %}
+                <i id="p-favorite" class="product-favorite-item absolute"></i>
+                <script src="{% static 'js/products/product_utils.js' %}"></script>
+{#                {% else %}#}
+{#                <div class="favorite-container">#}
+{#                    <i id="p-favorite" class="product-favorite-item absolute"></i>#}
+{#                    <div class="login-tooltip2">This activity requires <a href="/api/register/">Login</a></div>#}
+{#                </div>#}
+            {% endif %} 
             <div style="align-self: flex-end; flex-direction: column; display: flex">
                 <div class="product-items">
                     <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>
