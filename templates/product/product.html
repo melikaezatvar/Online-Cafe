@@ -3,12 +3,16 @@
 {% block header %}{{ block.super }}
 {% endblock %}
 {% block content %}
+    <a href="javascript:history.back()" class="nav-item nav-link" style="font-size: 30px">
+        <i class="fa-regular fa-hand-point-left"></i> Back
+    </a>
     {% for product in data %}
-        <div class="product-show">
-            <div class="product-image">
+        <input id="product-id" value="{{ product.id }}" hidden="hidden">
+        <div class="product-show" style="position: relative">
+            <div class="product-image" style="height: 308px">
                 <h5 class="menu-price">${{ product.price }}</h5>
                 {% if not product.images %}
-                    <img id="main-image" class="product-main-image" src="/media/product/images/site_image.jpeg" alt="No Image Available">
+                    <img id="main-image" class="product-main-image" src="/media/product/images/site_image.jpeg" style="height: 308px; width: 308px" alt="No Image Available">
                 	{% else %}
                     <img id="main-image" class="product-main-image" src="{{ product.images.0.src }}" alt="{{ product.images.0.alt }}">
                     <div class="product-images" >
@@ -22,16 +26,53 @@
                 <div>
                     <div>
                         {% for parent in product.category.parent %}
-                            <a href="/api/category/{{ parent }}/">{{ parent }}</a> >
+                            <a href="/api/category/{{ parent }}/">{{ parent|capfirst }}</a> >
                         {% endfor %}
-                        <a href="/api/category/{{ product.category.name }}/">{{ product.category.name }}</a>
+                        <a href="/api/category/{{ product.category.name }}/">{{ product.category.name|capfirst }}</a>
                     </div>
-                    <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name }}</h4>
+                    <div style="justify-content: space-between; align-items: center; display: flex">
+                        <h4 class="text-[150%] "><i class="fa-solid fa-diamond"></i> {{ product.name|capfirst }}</h4>
+                        {% if request.user.is_authenticated %}
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                            </div>
+                            <script src="{% static 'js/products/rating.js' %}"></script>
+                            {% else %}
+                            <div class="star-off-container logged-out" tabindex="0">
+                                <div class="star-off">
+                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars"></label>
+                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"></label>
+                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"></label>
+                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"></label>
+                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                </div>
+                                <div class="login-tooltip">This activity requires <a href="/api/register/">Login</a></div>
+                            </div>
+
+                        {% endif %}
+                    </div>
                     <hr class="hr-product">
-                    <p class="p-3">{{ product.description }}</p>
+                    {% for detail in product.description %}
+                        <div style="display: flex">
+                            <p class="pt-1 pl-3" style="font-weight: bold">{{ detail.0|capfirst }}:</p>
+                            <p class="pt-1 pl-3">{{ detail.1 }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-            <i id="p-favorite" onclick="changeFavoriteStatus()" class="fa-regular fa-heart product-favorite-item absolute"></i>
+            {% if request.user.is_authenticated %}
+                <i id="p-favorite" class="product-favorite-item absolute"></i>
+                <script src="{% static 'js/products/product_utils.js' %}"></script>
+                {% else %}
+                <div class="favorite-container">
+                    <i id="p-favorite" class="fa-heart fa-regular product-favorite-item absolute"></i>
+                    <div class="login-tooltip2">This activity requires <a href="/api/register/">Login</a></div>
+                </div>
+            {% endif %} 
             <div style="align-self: flex-end; flex-direction: column; display: flex">
                 <div class="product-items">
                     <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>
@@ -41,3 +82,4 @@
         </div>
     {% endfor %}
 {% endblock %}
+

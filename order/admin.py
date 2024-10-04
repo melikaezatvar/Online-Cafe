@@ -41,5 +41,6 @@ class OrderAdmin(admin.ModelAdmin):
         self.message_user(request, f"{queryset.count()} order(s) marked as shipped.")
     mark_as_shipped.short_description = "Mark selected orders as shipped"
 
-
 admin.site.register(Order, OrderAdmin)
+
+

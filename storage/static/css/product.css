@@ -1,6 +1,6 @@
 .product-show {
     --tw-border-opacity: 1;
-    border: 2px black solid;
+    border: 2px solid #8b5e3c;
     border-radius: 1.5rem;
     display: flex;
     margin-top: 10vh;
@@ -10,6 +10,8 @@
     padding: 3rem !important;
     width: 75% !important;
     unicode-bidi: isolate;
+    background-color: #fff;
+
 }
 
 .product-image {
@@ -128,11 +130,34 @@
     border: 1px solid #8B4513;
     border-radius: 5px;
     text-align: center;
-    background-color: #FFF8DC; /* رنگ روشن */
+    background-color: #FFF8DC;
     color: #8B4513;
 }
 
 .quantity-input-simple:focus {
     border-color: #A0522D;
     outline: none;
+}
+
+.favorite-container {
+    position: absolute;
+    display: inline-block;
+}
+
+.login-tooltip2 {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.favorite-container:hover .login-tooltip2 {
+    display: block;
 }

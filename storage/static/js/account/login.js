@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loginForm.addEventListener('click', (event) => {
         const data = new FormData(document.querySelector('#login-form'));
-        console.log(data)
         fetch('/api/login/', {
             method: 'POST',
             body: data,
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
              if (res.ok) {
                  alert('Login successful! Redirecting...');
                  window.location.assign('/api/home/');
-             }
+             } else { alert('Error')}
         }).catch(() => alert('Unknown error occurred.'));
     });
 });
