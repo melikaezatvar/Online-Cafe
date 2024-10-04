@@ -55,7 +55,6 @@ class LogoutView(APIView):
         return redirect('home')
 
 
-
 class ProfileView(LoginRequiredMixin, APIView):
     renderer_classes = [TemplateHTMLRenderer]
 
