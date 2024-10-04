@@ -72,11 +72,20 @@
                     <i id="p-favorite" class="fa-heart fa-regular product-favorite-item absolute"></i>
                     <div class="login-tooltip2">This activity requires <a href="/api/register/">Login</a></div>
                 </div>
-            {% endif %} 
-            <div style="align-self: flex-end; flex-direction: column; display: flex">
-                <div class="product-items">
-                    <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>
-                    <input type="number" class="quantity-input-simple " value="1" min="1">
+            {% endif %}
+            <div style="display: grid; justify-content: space-between;">
+                <div id="product-average" class="product-average">
+                    {% if product.average_rating != 'No one has rated this product' %}
+                        <p>{{ product.average_rating|floatformat:1 }}<sub class="sub-average">avg</sub></p>
+                    {% else %}
+                        <p>0.0<sub class="sub-average">avg</sub></p>
+                    {% endif %}
+                </div>
+                <div style="align-self: flex-end; flex-direction: column; display: flex">
+                    <div class="product-items">
+                        <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>
+                        <input type="number" class="quantity-input-simple " value="1" min="1">
+                    </div>
                 </div>
             </div>
         </div>

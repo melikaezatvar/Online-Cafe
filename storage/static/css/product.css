@@ -161,3 +161,23 @@
 .favorite-container:hover .login-tooltip2 {
     display: block;
 }
+
+.product-average {
+    --tw-text-opacity: 1;
+    color: rgb(220 38 38 / var(--tw-text-opacity));
+    font-size: 40px;
+    font-weight: 700;
+    display: flex;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.sub-average {
+    font-size: 0.25em;
+    vertical-align: sub;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
+    line-height: 1.25rem;
+    bottom: -.25em;
+    position: relative;
+}
