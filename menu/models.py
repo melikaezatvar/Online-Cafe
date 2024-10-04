@@ -65,7 +65,7 @@ class Product(TimeStampMixin, LogicalMixin):
     def average_rating(self):
         ratings = self.ratings.values_list('rate', flat=True)
         if ratings.exists():
-            return f"{sum(ratings) / len(ratings)}"
+            return f"{round(sum(ratings) / len(ratings), 1)}"
         return "No one has rated this product"
 
     def __str__(self):

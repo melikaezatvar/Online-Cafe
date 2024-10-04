@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', (qualifiedName, value) => {
                 headers:{
                     'X-CSRFToken': document.querySelector(`input[name="csrfmiddlewaretoken"]`).value,
                 },
-            }).then(res => console.log(res))
+            }).then(res => res.json())
+                .then(data => document.querySelector('#product-average').innerHTML = `<p>${data.product}<sub class="sub-average">avg</sub></p>`)
         });
     });
 })
