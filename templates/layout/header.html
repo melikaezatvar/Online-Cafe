@@ -16,7 +16,7 @@
                         <div id="nav-category" class="dropdown-content"></div>
                     </div>
                     {% if request.user.is_superuser %}
-                        <a href="/admin/" class="nav-item nav-link">Panel</a>
+                        <a href="/admin/" class="nav-item nav-link" target="_blank">Panel</a>
                         <a href="/api/profile/" class="nav-item nav-link">Profile</a>
                         <a onclick="Logout()" class="nav-item nav-link" style="cursor: pointer">Logout</a>
                     {% elif request.user.is_authenticated %}
