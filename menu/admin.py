@@ -1,10 +1,12 @@
 from django.contrib import admin
+
 from .models import Category, Product, Image, ProductDetail, Rating
 
 
 class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
     extra = 1
+
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -22,7 +24,9 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['category']
     ordering = ['name']
+
     inlines = [ImageInline, ProductDetailInline]
+
 
 
 class ImageAdmin(admin.ModelAdmin):
@@ -33,4 +37,5 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Category, CategoryAdmin)
+
 admin.site.register(Rating)
