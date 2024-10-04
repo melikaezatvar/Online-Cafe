@@ -8,6 +8,7 @@ from .serializers import OrderSerializer, OrderItemSerializer
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
+
 class AddToCartAPIView(GenericAPIView, ListModelMixin):
     serializer_class = OrderSerializer
     # print(10)
@@ -49,6 +50,18 @@ class UserOrderListView(APIView):
         orders = Order.objects.filter(user=request.user)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
+
+
+
+class RemoveOrderAPIView(APIView):
+    def delete(self, request, order_id, *args, **kwargs):
+        try:
+            order = Order.objects.get(id=order_id, user=request.user, status='pending')
+            order.delete()
+            return Response({"message": "Order removed successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found or not in pending status"}, status=status.HTTP_404_NOT_FOUND)
+
 
 
 # # لیست سفارشات و ایجاد سفارش جدید هنگام افزودن کالا به سبد خرید
