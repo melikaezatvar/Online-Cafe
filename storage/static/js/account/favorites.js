@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const imageSrc = product.images.length ? product.images[0].src : '/media/product/images/site_image.jpeg';
                         li.innerHTML += `
                             <a href="/api/product/${product.id}/" style="text-decoration: none; color: inherit;">
-                                <div class="row product" style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+                                <div class="row product" style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 10px; text-decoration: none; color: inherit;">
                                     <img src="${imageSrc}" class="rounded-circle mb-3 mb-sm-0" style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;">
                                     <div style="display: flex; flex-direction: column;">
                                         <div style="font-size: 20px; font-weight: bold;">$${product.price}</div>
