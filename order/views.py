@@ -75,3 +75,16 @@ class OrderDetailAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Order.DoesNotExist:
             return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+class MarkAsShippedAPIView(APIView):
+    def post(self, request, order_id, *args, **kwargs):
+        try:
+            order = Order.objects.get(id=order_id, user=request.user, status='pending')
+            order.status = 'Shipped'
+            order.save()
+            return Response({"message": "Order marked as shipped"}, status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found or not in pending status"}, status=status.HTTP_404_NOT_FOUND)
