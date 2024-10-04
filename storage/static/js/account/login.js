@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
              if (res.ok) {
                  alert('Login successful! Redirecting...');
                  window.location.assign('/api/home/');
-             } else { alert('Error')}
+             } else { alert('Username or Password is invalid')}
         }).catch(() => alert('Unknown error occurred.'));
     });
 });

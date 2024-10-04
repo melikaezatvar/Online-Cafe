@@ -9,7 +9,7 @@ function Logout() {
              if (res.ok) {
                  alert('logout successful! Redirecting...')
                  window.location.reload()
-             } else { alert('Error')}
+             } else { alert('Logout failed')}
          }).catch(() => alert('Unknown Error'))
 
 }

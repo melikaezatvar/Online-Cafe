@@ -95,7 +95,9 @@ class RatingAPIView(APIView):
         if (rate_object := Rating.objects.filter(product=product, user=user)).exists():
             rate_object.update(rate=rate)
             Rating.objects.get(product=product, user=user).save(force_update='update_at')
-            return Response(status=status.HTTP_201_CREATED)
+            serializer = RatingSerializer(Rating.objects.filter(product=product).first())
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         Rating.objects.create(product=product, user=user, rate=rate)
-        return Response(status=status.HTTP_201_CREATED)
+        serializer = RatingSerializer(Rating.objects.filter(product=product).first())
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 

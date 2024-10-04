@@ -1,13 +1,3 @@
-# from django.contrib import admin
-# from django.apps import apps
-#
-# models = apps.get_models()
-#
-# for model in models:
-#     try:
-#         admin.site.register(model)
-#     except admin.sites.AlreadyRegistered:
-#         pass
 from django.contrib import admin
 from .models import CustomerProfile
 
@@ -28,6 +18,5 @@ class CustomerProfileAdmin(admin.ModelAdmin):
         self.message_user(request, "Selected customers have been banned.")
 
     ban_customer.short_description = "Ban selected customers"
-
 
 admin.site.register(CustomerProfile, CustomerProfileAdmin)

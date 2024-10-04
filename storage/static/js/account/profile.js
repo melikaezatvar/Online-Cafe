@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Updated successfully! Redirecting...');
                 window.location.reload();
             } else {
-                alert('Error');
+                alert('Error updating password');
             }
         }).catch(() => alert('Error updating password'));
     });
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (res.ok) {
                 alert('Profile updated successfully!');
                 window.location.reload();
-            } else {
-                alert('Error');
+            } else if('confirm_password'!== 'new_password') {
+                alert('Error updating profile');
             }
         }).catch(() => alert('Error updating profile'));
     });

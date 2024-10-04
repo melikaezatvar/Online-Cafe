@@ -31,8 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'jazzmin',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +49,6 @@ INSTALLED_APPS = [
 
     # Third-party
     'rest_framework',
-
 
 ]
 
@@ -149,9 +149,9 @@ MEDIA_ROOT = BASE_DIR / 'storage/media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomerProfile'
+
 LOGIN_URL = '/api/login/'
 LOGOUT_URL = '/api/home/'
-
 
 JAZZMIN_SETTINGS = {
     "copyright": False,
@@ -214,3 +214,4 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": False
 }
+
