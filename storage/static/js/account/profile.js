@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (res.ok) {
                 alert('Profile updated successfully!');
                 window.location.reload();
-            } else if('confirm_password'!== 'new_password') {
+            } else {
                 alert('Error updating profile');
             }
         }).catch(() => alert('Error updating profile'));

@@ -69,7 +69,7 @@ class ProfileView(LoginRequiredMixin, APIView):
 
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': 'Profile updated successfully!'}, template_name='account/profile.html')
+            return Response({'message': 'Profile updated successfully!'}, status=status.HTTP_202_ACCEPTED, template_name='account/profile.html')
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, template_name='account/profile.html')
 
