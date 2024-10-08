@@ -4,14 +4,16 @@ function changeImage(src, alt) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const imagesEl = document.querySelectorAll('img')
-    imagesEl.forEach((element) => {
-        fetch(`${element.src}`)
-            .then(res => {
-                if (!res.ok) {
-                    element.src = "/media/product/images/not-available.png"
-                    element.alt = "Not available"
-                }
-            })
-    })
+    setTimeout(() => {
+        const imagesEl = document.querySelectorAll('img')
+        imagesEl.forEach((element) => {
+            fetch(`${element.src}`)
+                .then(res => {
+                    if (!res.ok) {
+                        element.src = "/media/product/images/not-available.png"
+                        element.alt = "Not available"
+                    }
+                })
+        })
+    }, 2000)
 })

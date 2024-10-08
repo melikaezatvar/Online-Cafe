@@ -66,12 +66,6 @@
             </div>
             {% if request.user.is_authenticated %}
                 <i id="p-favorite" class="product-favorite-item absolute"></i>
-                <div style="align-self: flex-end; flex-direction: column; display: flex">
-                    <div class="product-items">
-                        <i id = 'add-to-cart-button' class="fa-solid fa-cart-plus product-cart-item"></i>
-                        <input type="number" class="quantity-input-simple " value="1" min="1">
-                    </div>
-                </div>
 
                 <script src="{% static 'js/products/product_utils.js' %}"></script>
                 <script src="{% static 'js/order/add_to_cart.js' %}"></script>
@@ -95,7 +89,7 @@
                 </div>
                 <div style="align-self: flex-end; flex-direction: column; display: flex">
                     <div class="product-items">
-                        <i onclick="addToCart()" class="fa-solid fa-cart-plus product-cart-item"></i>
+                        <i id = 'add-to-cart-button' class="fa-solid fa-cart-plus product-cart-item"></i>
                         <input type="number" class="quantity-input-simple " value="1" min="1">
                     </div>
                 </div>

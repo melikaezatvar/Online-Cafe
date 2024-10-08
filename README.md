@@ -60,3 +60,20 @@ The project also includes API endpoints for the main features:
     /api/categories/ - List of product categories
     /api/orders/ - Create and manage orders
     /api/reviews/ - Submit product reviews and ratings
+
+## Custom Filter Addition
+To add a custom filter to the jazzmin.py file, follow the steps below:
+
+Navigate to the file located at:
+
+    venv/jazzmin/templatetag/jazzmin.py
+پ
+
+At the end of the file, add the following code to define the length_is filter:
+
+    @register.filter(name='length_is')
+    def length_is(value, arg):
+        return len(value) == int(arg)
+    
+This filter checks if the length of a given value matches the specified argument.
+
