@@ -36,7 +36,7 @@
                         <input type="text" name="last_name" value="{{ request.user.last_name }}" class="form-control bg-transparent p-4 mb-3" placeholder="Last Name" />
                     </div>
                     <div class="form-group">
-                        <input type="text" name="phone_number" value="{% if request.user.phone_number %}{{ request.user.phone_number }}{% endif %}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
+                        <input type="text" name="phone_number" value="{{ request.user.phone_number }}" class="form-control bg-transparent p-4 mb-3" placeholder="Phone Number" />
                     </div>
                     <div class="form-group">
                         <input type="date" name="birthday" value="{{ request.user.birthday }}" class="form-control bg-transparent p-4 mb-3" placeholder="Birthday" />
@@ -75,12 +75,18 @@
                 <img class="img-fluid" src="{% static 'img/favorite3.png' %}" alt="Favorite Image" style="object-fit: cover; width: 100%; height: auto;">
             </div>
         </div>
-        
+
+        <!-- جزئیات سفارش‌ها -->
+        <div id="orders-list"></div>
+        <div id="order-details">
+            <!-- جزئیات سفارش‌ها در این بخش نمایش داده می‌شوند -->
+        </div>
+
         
         <div class="row py-4 d-none" id="orders">
             <div class="col-lg-6 py-0 py-lg-5">
                 <h3>Your Orders</h3>
-                <ul id="orders-list"></ul>
+                <ul id="orders-list" style="list-style-type: none"></ul>
             </div>
             <div class="col-lg-6 py-5">
                 <img class="img-fluid" src="{% static 'img/orders.png' %}" alt="Order Image" style="object-fit: cover; width: 100%; height: auto;">
@@ -93,7 +99,9 @@
 {% block extra_body %}
 <script src="{% static 'js/account/profile.js' %}"></script>
 <script src="{% static 'js/account/favorites.js' %}"></script>
-
+<script src="{% static 'js/order/order_details.js' %}"></script>
+<script src="{% static 'js/order/remove_order.js' %}"></script>
+<script src="{% static 'js/order/order_list.js' %}"></script>
 
 
 {% endblock %}
