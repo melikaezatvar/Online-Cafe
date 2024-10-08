@@ -4,7 +4,7 @@ from menu.models import Product
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import CustomerProfile
-from datetime import datetime, timedelta
+from datetime import date
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -41,14 +41,6 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    # def validate(self, data):
-    #     birthday = data.get('birthday')
-    #     valid_date = datetime.now().year - birthday.year
-    #     if valid_date <= 12:
-    #         raise serializers.ValidationError("You should be older than 12 years old")
-    #
-    #     return {'birthday': birthday}
-
     class Meta:
         model = CustomerProfile
         fields = ['username', 'first_name', 'last_name', 'phone_number', 'birthday', 'email']
@@ -61,7 +53,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'email': {'required': False}
         }
 
-
+    def validate_birthday(self, value):
+        if value is None:
+            return value
+        today = date.today()
+        age = today.year - value.year - ((today.month, today.day) < (value.month, value.day))
+        if age < 12:
+            raise serializers.ValidationError("You must be at least 12 years old!")
+        return value
 
 
 class UserPasswordSerializer(serializers.ModelSerializer):
