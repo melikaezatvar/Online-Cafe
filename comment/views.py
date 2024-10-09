@@ -9,8 +9,11 @@ from .serializer import CommentSerializer
 class CommentManagementAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, product_id, *args, **kwargs):
-        comments = Comment.objects.filter(product_id=product_id, is_active=True).order_by('-create_at')[:20]
+    def get(self, request, *args, **kwargs):
+        if 'product_id' in kwargs:
+            comments = Comment.objects.filter(user=request.user, product_id=kwargs.pop('product_id'), is_active=True).order_by('-create_at')[:20]
+        else:
+            comments = Comment.objects.filter(user=request.user, is_active=True).order_by('-create_at')
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
 
