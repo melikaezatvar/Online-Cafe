@@ -4,9 +4,14 @@ from accounts.models import CustomerProfile
 
 
 class ReplyCommentSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        queryset=CustomerProfile.objects.all()
+    )
+
     class Meta:
         model = Comment
-        fields = ['comment', 'user']
+        fields = ['id', 'comment', 'user']
 
 
 class ReactionSerializer(serializers.ModelSerializer):
@@ -22,11 +27,12 @@ class ReactionSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     reply_comment = ReplyCommentSerializer()
-    reaction = ReactionSerializer(many=True)
+    reaction = serializers.SerializerMethodField()
     user = serializers.SlugRelatedField(
         slug_field='username',
         queryset=CustomerProfile.objects.all()
     )
+    create_at = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S')
 
     class Meta:
         model = Comment
@@ -38,5 +44,11 @@ class CommentSerializer(serializers.ModelSerializer):
                   'create_at',
                   'count_like',
                   'count_dislike']
-        # fields = '__all__'
 
+    def get_reaction(self, obj):
+        request = self.context.get('request', None)
+        if request is not None:
+            user = request.user
+            reactions = obj.reaction.filter(user=user)
+            return ReactionSerializer(reactions, many=True).data
+        return None
