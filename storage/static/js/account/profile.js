@@ -1,15 +1,18 @@
-function showSection(section) {
-        const sections = ['personal-info', 'favorite-list', 'orders'];
+function showSection(section, func) {
+        const sections = ['personal-info', 'favorite-list', 'orders', 'user-comments'];
         sections.forEach(s => {
             document.getElementById(s).classList.add('d-none');
         });
         document.getElementById(section).classList.remove('d-none');
 
-        const tabs = ['personal-info-tab', 'favorite-list-tab', 'orders-tab'];
+        const tabs = ['personal-info-tab', 'favorite-list-tab', 'orders-tab','user-comments-tab'];
         tabs.forEach(tab => {
             document.getElementById(tab).classList.remove('active');
         });
         document.getElementById(section + '-tab').classList.add('active');
+        if (func) {
+            func()
+        }
     }
 
 document.addEventListener('DOMContentLoaded', function () {
