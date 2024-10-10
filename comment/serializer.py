@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AnonymousUser
 from rest_framework import serializers
 from .models import Comment, Reaction
 from accounts.models import CustomerProfile
@@ -44,11 +45,16 @@ class CommentSerializer(serializers.ModelSerializer):
                   'create_at',
                   'count_like',
                   'count_dislike']
+        extra_kwargs = {
+            'reply_comment': {'required': False},
+            'create_at': {'required': False},
+        }
 
     def get_reaction(self, obj):
         request = self.context.get('request', None)
-        if request is not None:
+        if request is not None and not isinstance(request.user, AnonymousUser):
             user = request.user
             reactions = obj.reaction.filter(user=user)
             return ReactionSerializer(reactions, many=True).data
         return None
+
