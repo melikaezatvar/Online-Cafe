@@ -19,6 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="orders-tab" href="#" onclick="showSection('orders')">My Orders</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="user-comments-tab" href="#" onclick="showSection('user-comments', loadUserComments)">My comments</a>
+                </li>
             </ul>
         </div>
         
@@ -77,10 +80,10 @@
         </div>
 
         <!-- جزئیات سفارش‌ها -->
-        <div id="orders-list"></div>
-        <div id="order-details">
-            <!-- جزئیات سفارش‌ها در این بخش نمایش داده می‌شوند -->
-        </div>
+{#        <div id="orders-list"></div>#}
+{#        <div id="order-details">#}
+{#            <!-- جزئیات سفارش‌ها در این بخش نمایش داده می‌شوند -->#}
+{#        </div>#}
 
         
         <div class="row py-4 d-none" id="orders">
@@ -92,6 +95,17 @@
                 <img class="img-fluid" src="{% static 'img/orders.png' %}" alt="Order Image" style="object-fit: cover; width: 100%; height: auto;">
             </div>
         </div>
+    
+        <div class="row py-4 d-none" id="user-comments">
+            <div class="col-lg-6 py-0 py-lg-5">
+                <h3>Your Comments</h3>
+                <ul id="user-comments-list" style="list-style-type: none"></ul>
+            </div>
+            <div class="col-lg-6 py-5">
+                <img class="img-fluid" src="{% static 'img/comments2.png' %}" alt="Comment Image" style="object-fit: cover; width: 100%; height: auto;">
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}
@@ -102,6 +116,7 @@
 <script src="{% static 'js/order/order_details.js' %}"></script>
 <script src="{% static 'js/order/remove_order.js' %}"></script>
 <script src="{% static 'js/order/order_list.js' %}"></script>
+<script src="{% static 'js/account/components/profile_comments.js' %}"></script>
 
 
 {% endblock %}

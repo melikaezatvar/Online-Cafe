@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'menu',
     'order',
     'core',
+    "comment",
 
     # Third-party
     'rest_framework',
