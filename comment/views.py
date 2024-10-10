@@ -18,7 +18,7 @@ class CommentManagementAPIView(APIView):
             reply_comments = Comment.objects.filter(product_id=kwargs.get('product_id'), is_active=True, reply_comment__in=main_comment).order_by('create_at')
             all_comment = [*main_comment, *reply_comments]
         else:
-            all_comment = Comment.objects.filter(user=request.user, is_active=True).order_by('-create_at')
+            all_comment = Comment.objects.filter(user=request.user, is_active=False).order_by('-create_at')
 
         serializer = CommentSerializer(all_comment, many=True, context={'request': request})
         return Response(serializer.data)
