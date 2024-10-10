@@ -17,32 +17,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         li.innerHTML = `
                             <a href="#" class="order-link" data-id="${order.id}" style="text-decoration: none; color: inherit;">
-                                <div class="row order" style="display: flex; align-items: center; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+                                <div class="row order" style="border: 1px solid #ddd; padding: 10px; border-radius: 10px; display: flex; margin-bottom: 10px; align-items: center; background-color: #fff;">
                                     <div style="display: flex; flex-direction: column;">
-                                        <div style="font-size: 14px; font-weight: bold;">Order ID: ${order.id}    *      User: ${order.user} </div>
+                                        <div style="font-size: 14px; font-weight: bold;">Order: ${order.id}</div>
                                         <div style="font-size: 14px;">Status: ${order.status}</div>
-                                        <div style="font-size: 16px;">Total Items: ${order.items.length}</div>
+                                        <div style="font-size: 16px;">Total Items:${order.items.length}</div>
+                                        <div style="font-size: 16px;">Items:</div>
+                                        <ul style="padding-left: 20px; list-style: none;">
+                                            ${order.items.map(item => `
+                                                <li>
+                                                    ${item.product.name} - Quantity: ${item.quantity}
+                                                </li>
+                                            `).join('')}
+                                        </ul>
                                     </div>
                                 </div>
                             </a>
                         `;
 
-                        // دکمه‌های حذف و پرداخت فقط برای سفارش‌های pending
                         if (order.status === 'pending') {
                             li.innerHTML += `
-                                <button class="remove-order-btn" data-id="${order.id}" style="position: absolute; top: 10px; right: 50px; background: none; border: none; cursor: pointer;">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                <button class="pay-order-btn" data-id="${order.id}" style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;">
-                                    <i class="fa-solid fa-money-bill-wave"></i>
-                                </button>
+                                <div style="align-items:center; display: flex; position: absolute;right: -4px; top: 3px; gap: 3px ">
+                                    <button class="remove-order-btn" data-id="${order.id}" style="background: none; border: none; cursor: pointer;color:#ce7c3d;">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+    
+                                    <button class="finalize-order-btn" data-id="${order.id}" style="background: none; border: none; cursor: pointer; color:#5c985c;font-size:25px;">
+                                        <i class="fa-brands fa-amazon-pay"></i>
+                                    </button>
+                                </div>
                             `;
                         }
 
                         ordersList.appendChild(li);
                     });
 
-                    // بعد از بارگذاری سفارش‌ها، event listener ها را برای دکمه‌های حذف و پرداخت اضافه کنید
+
                     addOrderDetailsListeners();
                     addRemoveOrderListeners();
                     addPayOrderListeners();
@@ -77,8 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => {
                     if (response.ok) {
                         console.log('Order removed successfully');
-                        // می‌توانید سفارش را از لیست حذف کنید یا صفحه را رفرش کنید
-                        location.reload();  // صفحه را رفرش می‌کند
+                        location.reload();
                     } else {
                         console.error('Error removing order');
                     }
@@ -122,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`/api/order/${orderId}/`)
             .then(response => response.json())
             .then(data => {
-                // نمایش جزئیات سفارش
                 orderDetailsSection.innerHTML = `
                     <h3>Order ID: ${data.id}</h3>
                     <p>Status: ${data.status}</p>
