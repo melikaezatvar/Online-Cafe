@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         else {
                             navCategoryEl.innerHTML += `
                             <div class="dropdown-submenu">
-                                <a href="/api/category/${category.name}">${category.name}     ></a>
+                                <a href="/api/category/${category.name}" style="display: flex; justify-content: space-between; height: min-content">
+                                    <div>${category.name}</div>
+                                    <div>></div>
+                                </a>
                                 <div id="category-${category.name}" class="dropdown-content-sub"></div>
                             </div>`
 
