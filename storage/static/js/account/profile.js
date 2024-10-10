@@ -10,7 +10,10 @@ function showSection(section, func) {
             document.getElementById(tab).classList.remove('active');
         });
         document.getElementById(section + '-tab').classList.add('active');
-        if (func) {
+        const url = new URL(window.location);
+        url.searchParams.set('section', section);
+        window.history.pushState({}, '', url);
+            if (func) {
             func()
         }
     }
@@ -18,6 +21,13 @@ function showSection(section, func) {
 document.addEventListener('DOMContentLoaded', function () {
     const updatePassword = document.getElementById('update-password-btn');
     const updateProfile = document.getElementById('update-profile-btn');
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+   if (section) {
+        showSection(section, section === 'user-comments' ? loadUserComments : null);
+   } else {
+        showSection('personal-info');
+   }
 
     updatePassword.addEventListener('click', (event) => {
         event.preventDefault();

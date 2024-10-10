@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                 </div>
                             </a>
-                            <a href="#" class="remove-favorite-btn" data-id="${product.id}" style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;">
+                            <a href="#" class="remove-favorite-btn" data-id="${product.id}" style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer; color:#ce7c3d;">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         `;
