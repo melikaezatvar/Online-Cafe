@@ -7,6 +7,9 @@
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <a href="/api/profile/?section=orders" class="nav-item nav-link">
+                <i class="fa-solid fa-cart-shopping" style="cursor: pointer; font-size:30px;color:white; border: white solid 2px; padding: 10px; border-radius: 50%"></i>
+            </a>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
                     <a href="/api/home/" class="nav-item nav-link">Home</a>
@@ -15,6 +18,7 @@
                         <button class="dropbtn">Category <i class="fa-solid fa-chevron-down"></i></button>
                         <div id="nav-category" class="dropdown-content"></div>
                     </div>
+                    
                     {% if request.user.is_superuser %}
                         <a href="/admin/" class="nav-item nav-link" target="_blank">Panel</a>
                         <a href="/api/profile/" class="nav-item nav-link">Profile</a>
