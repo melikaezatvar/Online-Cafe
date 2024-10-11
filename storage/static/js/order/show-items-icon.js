@@ -1,10 +1,15 @@
 function countItems () {
+    console.log('Checking Items ...')
     fetch('/api/orders/')
         .then(res => res.json())
         .then(data => {
-            if (data.length && data.at(-1).status === 'pending') {
-                document.querySelector('#count-order-items').innerHTML = `${data.at(-1).items.length}`
-                document.querySelector('#count-order-items').classList.remove('hidden-element')
+            if (data.length) {
+                if (data.at(0).status === 'pending') {
+                    document.querySelector('#count-order-items').innerHTML = `${data.at(0).items.length}`
+                    document.querySelector('#count-order-items').classList.remove('hidden-element')
+                } else {
+                    document.querySelector('#count-order-items').classList.add('hidden-element')
+                }
             }
         })
 }

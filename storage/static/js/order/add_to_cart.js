@@ -3,7 +3,6 @@ document.getElementById('add-to-cart-button').addEventListener('click', function
     const productId = document.getElementById('product-id').value;
 
     const quantity= document.querySelector('.quantity-input-simple').value;
-    const orderItems = document.querySelector('#count-order-items')
 
     fetch('/api/order/add-to-cart/', {
 
@@ -19,11 +18,9 @@ document.getElementById('add-to-cart-button').addEventListener('click', function
     })
     .then(response => response.json())
     .then(data => {
-        countItems()
-        console.log('Product added to cart:', data);
-         alert("Product added to cart!");
+        alert("Product added to cart!");
     })
     .catch(error => {
-        console.error('Error:', error);
-    });
-});
+        alert('Error: '+ error)
+    }).finally(() => countItems())
+})
