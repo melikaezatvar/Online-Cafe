@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (order.status === 'pending') {
                             li.innerHTML += `
-                                <div style="align-items:center; display: flex; position: absolute;right: -4px; top: 3px; gap: 3px ">
+                               <div style="align-items:center; display: flex; position: absolute;right: -4px; top: 3px; gap: 3px ">
                                     <button class="remove-order-btn" data-id="${order.id}" style="background: none; border: none; cursor: pointer;color:#ce7c3d;">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
@@ -59,12 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     ordersList.addEventListener('click', (event) => {
-        if (event.target.closest('.remove-order-btn')) {
-            event.preventDefault();
+        event.preventDefault();  // جلوگیری از رفتار پیش‌فرض
 
-            const orderId = event.target.closest('.remove-order-btn').getAttribute('data-id');
-            const csrfToken = document.querySelector(`input[name="csrfmiddlewaretoken"]`).value;
+        const removeBtn = event.target.closest('.remove-order-btn');
+        const finalizeBtn = event.target.closest('.finalize-order-btn');
+        const csrfToken = document.querySelector(`input[name="csrfmiddlewaretoken"]`).value;
 
+        if (removeBtn) {
+            const orderId = removeBtn.getAttribute('data-id');
+            // درخواست حذف سفارش
             fetch(`/order/remove/${orderId}/`, {
                 method: 'DELETE',
                 headers: {
@@ -74,17 +77,33 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (response.ok) {
                     console.log('Order removed successfully');
-
-                    fetchOrders();
+                    fetchOrders();  // بارگذاری مجدد لیست سفارش‌ها
                 } else {
                     console.error('Error removing order');
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .catch(error => console.error('Error:', error));
+        } else if (finalizeBtn) {
+            const orderId = finalizeBtn.getAttribute('data-id');
+            fetch(`/api/order/finalize/${orderId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Order finalized successfully');
+                    fetchOrders();  // بارگذاری مجدد لیست سفارش‌ها
+                } else {
+                    console.error('Error finalizing order');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
     });
 
     fetchOrders();
 });
+
+

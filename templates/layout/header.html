@@ -8,7 +8,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a href="/api/profile/?section=orders" class="nav-item nav-link">
-                <i class="fa-solid fa-cart-shopping" style="cursor: pointer; font-size:30px;color:white; border: white solid 2px; padding: 10px; border-radius: 50%"></i>
+                <i class="fa-solid fa-cart-shopping" style="display: flex; position: relative; cursor: pointer; font-size:30px;color:white; border: white solid 2px; padding: 10px; border-radius: 50%">
+                    <p id="count-order-items" class="hidden-element" style="top: -10px;right: -5px; align-self: end; font-size:15px; position: absolute; padding: 5px; border-radius: 100%; background-color: #1e7e34"></p>
+                </i>
             </a>
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto p-4">
