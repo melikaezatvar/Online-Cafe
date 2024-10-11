@@ -1,5 +1,4 @@
 function countItems () {
-    console.log('Checking Items ...')
     fetch('/api/orders/')
         .then(res => res.json())
         .then(data => {

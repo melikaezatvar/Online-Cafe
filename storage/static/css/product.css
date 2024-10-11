@@ -94,6 +94,23 @@
     line-height: 1;
     text-rendering: auto;
 }
+.cart-item-off {
+    --tw-text-opacity: 1;
+    border: 2px #fdf9f0 solid;
+    color: rgb(21 128 61 / var(--tw-text-opacity));
+    font-size: 30px;
+    cursor: pointer;
+    padding: 0.5rem !important;
+    border-radius: 1rem !important;
+    font-family: "Font Awesome 6 Free", serif;
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
 
 .product-cart-item:hover {
     --tw-bg-opacity: 1;
