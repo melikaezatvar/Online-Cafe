@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                                 </li>
                                             `).join('')}
                                         </ul>
+                                        <div style="font-size: 16px; font-weight: bold; margin-top: 10px;">
+                                            Total Price: $${order.get_total_price}
+                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -71,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => {
                 if (response.ok) {
                     console.log('Order removed successfully');
-                    // سفارش را از لیست حذف کنید یا صفحه را رفرش کنید
-                    fetchOrders();  // بارگذاری مجدد لیست سفارش‌ها
+
+                    fetchOrders();
                 } else {
                     console.error('Error removing order');
                 }

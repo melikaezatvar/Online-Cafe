@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                                 </li>
                                             `).join('')}
                                         </ul>
+                                        <div style="font-size: 16px; font-weight: bold; margin-top: 10px;">
+                                            Total Price: $${order.get_total_price}
+                                        </div>
                                     </div>
                                 </div>
                             </a>
