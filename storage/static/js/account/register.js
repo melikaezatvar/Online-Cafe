@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const registerForm = document.getElementById('register-form-btn');
+    const registerForm = document.getElementById('register-form');
 
-    registerForm.addEventListener('click',   (event) => {
+    registerForm.addEventListener('submit',   (event) => {
+        event.preventDefault()
         const data = new FormData(document.querySelector('#register-form'))
 
          fetch('/api/register/', {

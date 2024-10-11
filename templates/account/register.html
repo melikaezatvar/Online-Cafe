@@ -12,6 +12,7 @@
             </div>
             <input required type="text" name="username" placeholder="Username" class="form-control bg-transparent p-4" />
             <input required type="password" name="password" placeholder="Password" class="form-control bg-transparent p-4" />
+            <button id="login-form-btn" name="login-form" style="margin-top: auto" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="submit">Login</button>
         </form>
         <form id="register-form" class="rl-style" method="POST">
             {% csrf_token %}
@@ -21,12 +22,9 @@
             <input required type="text" name="username" placeholder="Username" class="form-control bg-transparent p-4" />
             <input required type="password" name="password" placeholder="Password" class="form-control bg-transparent p-4" />
             <input required type="password" name="confirm_password" placeholder="Confirm Password" class="form-control bg-transparent p-4" />
-            <input id="phone_number" required type="text" name="phone_number" placeholder="PhoneNumber" class="form-control bg-transparent p-4" />
+            <input id="phone_number" type="text" name="phone_number" placeholder="PhoneNumber" class="form-control bg-transparent p-4" />
+            <button id="register-form-btn" style="margin-top: auto" name="register-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="submit">Register</button>
         </form>
-    </div>
-    <div class="auth-form">
-        <button id="login-form-btn" name="login-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Login</button>
-        <button id="register-form-btn" name="register-form" class="btn btn-primary font-weight-bold py-3 px-5 mx-auto" type="button">Register</button>
     </div>
 {% endblock %}
 {% block extra_body %}
