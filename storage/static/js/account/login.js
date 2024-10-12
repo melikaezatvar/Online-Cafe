@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const loginForm = document.getElementById('login-form-btn');
+    const loginForm = document.getElementById('login-form');
 
-    loginForm.addEventListener('click', (event) => {
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault()
         const data = new FormData(document.querySelector('#login-form'));
         fetch('/api/login/', {
             method: 'POST',

@@ -1,0 +1,128 @@
+.comments-container {
+    width: 80% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 10vh
+}
+
+.comment-container {
+    --tw-bg-opacity: 1;
+    background-color: rgb(247 226 183 / var(--tw-bg-opacity));
+    --tw-border-opacity: 1;
+    border: rgb(139 94 60 / var(--tw-border-opacity)) solid 3px;
+    border-radius: 1rem;
+    flex-direction: column;
+    min-height: 200px;
+    display: flex;
+    position: relative;
+    padding: .5rem !important;
+    margin-bottom: 1rem !important;
+    margin-top: 1rem !important;
+}
+
+.reply-comment-container {
+    --tw-bg-opacity: 1;
+    background-color: rgb(237 203 165 / var(--tw-bg-opacity));
+    --tw-border-opacity: 1;
+    border: rgb(139 94 60 / var(--tw-border-opacity)) solid 1px;
+    flex-direction: column;
+    min-height: 100px;
+    display: flex;
+    position: relative;
+    padding: .5rem !important;
+    margin: 1rem auto !important;
+    width: 75% !important;
+}
+
+.show-comment {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    margin-left: auto !important;
+    margin-right: auto !important
+}
+
+.field-comment {
+    width: 100%;
+    padding: 1vh;
+    resize: none;
+    border: #40220a solid 1px;
+}
+
+.comment-btn {
+    background-color: #a0f3a0;
+    font-size: 25px;
+    border-radius: 0.375rem;
+    padding: .5rem !important;
+    margin-top: .5rem !important;
+    align-self: flex-end !important;
+}
+
+.comment-btn:hover {
+    background-color: #32b4f1;
+}
+
+.comment-access {
+    font-size: 25px;
+    text-align: center !important;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.user-comment-icon {
+    font-size: 30px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+    border-width: 2px;
+    padding: .5rem !important;
+    border-radius: 50% !important;
+}
+
+.uc-container {
+    gap: 0.5rem;
+    align-items: center;
+    display: flex
+}
+
+.reaction-container {
+    gap: 0.75rem;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    align-self: flex-end !important;
+}
+
+.reply-icon {
+    font-size: 30px;
+    cursor: pointer;
+    bottom: 0;
+    position: absolute;
+    padding: .5rem !important;
+    align-self: flex-end !important;
+}
+
+.reply-btn {
+    color:white ;
+    background-color: #606060;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    right: 10px;
+    position: absolute;
+    padding: .5rem !important;
+    margin-top: .5rem !important;
+}
+
+.reply-btn:hover {
+    background-color: #a45ef3;
+}
+
+.react-container {
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.hidden-element {
+    display: none !important;
+}

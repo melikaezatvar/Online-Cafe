@@ -8,10 +8,10 @@ class ProductDetailInline(admin.TabularInline):
     extra = 1
 
 
-
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', '_parent']
+    list_display = ['name', '_parent', 'is_delete']
     search_fields = ['name']
+    list_editable = ['is_delete']
 
 
 class ImageInline(admin.TabularInline):
@@ -20,13 +20,17 @@ class ImageInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'category', 'quantity']
+    list_display = ['name', 'price', 'category', 'average_rating', 'is_delete']
     search_fields = ['name']
     list_filter = ['category']
     ordering = ['name']
-
+    list_editable = ('is_delete',)
     inlines = [ImageInline, ProductDetailInline]
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "category":
+            kwargs["queryset"] = Category.objects.filter(_parent__isnull=False, childes__isnull=True)
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class ImageAdmin(admin.ModelAdmin):
@@ -37,5 +41,3 @@ class ImageAdmin(admin.ModelAdmin):
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Category, CategoryAdmin)
-
-admin.site.register(Rating)

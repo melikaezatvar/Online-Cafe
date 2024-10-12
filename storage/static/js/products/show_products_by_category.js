@@ -5,8 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             data.forEach(category => {
                 if (category.get_childes.length === 0 && category.get_products.length !== 0) {
-                    menuEl.innerHTML += `<div class="product-title"><p>${category.parent.at(-1)}-${category.name}</p></div>
+                    menuEl.innerHTML += `
+                    <div class="product-title"><p id="title-${category.name}"></p></div>
                     <div id="p-category-${category.name}" style="grid-template-columns: repeat(3, minmax(0, 1fr)); display: grid; gap: 50px"></div>`
+                    if (!category.parent.length) {
+                        menuEl.querySelector('#title-'+category.name).innerHTML = category.name
+                    } else {
+                        menuEl.querySelector('#title-'+category.name).innerHTML = `${category.parent.at(-1)}-${category.name}`
+                    }
                     category.get_products.forEach(product => {
                         menuEl.querySelector('#p-category-'+category.name).innerHTML += `
                         <a href="/api/product/${product.id}" class="row product" style="height: 25vh">

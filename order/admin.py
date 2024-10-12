@@ -24,8 +24,8 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'status', 'create_at', 'update_at')
-    list_filter = ('update_at', 'create_at')
+    list_display = ('id', 'user', 'status', 'get_total_price', 'create_at', 'update_at')
+    list_filter = ('update_at', 'create_at', 'status')
     search_fields = ('user__username', 'items__product__category__name')
     inlines = [OrderItemInline]
     list_editable = ("status",)
@@ -33,14 +33,13 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ('create_at',)
     list_select_related = ('user',)
     date_hierarchy = 'update_at'
-
     actions = ['mark_as_shipped']
 
     def mark_as_shipped(self, request, queryset):
         queryset.update(status='shipped')
         self.message_user(request, f"{queryset.count()} order(s) marked as shipped.")
+
     mark_as_shipped.short_description = "Mark selected orders as shipped"
 
+
 admin.site.register(Order, OrderAdmin)
-
-

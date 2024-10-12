@@ -1,20 +1,33 @@
-function showSection(section) {
-        const sections = ['personal-info', 'favorite-list', 'orders'];
+function showSection(section, func) {
+        const sections = ['personal-info', 'favorite-list', 'orders', 'user-comments'];
         sections.forEach(s => {
             document.getElementById(s).classList.add('d-none');
         });
         document.getElementById(section).classList.remove('d-none');
 
-        const tabs = ['personal-info-tab', 'favorite-list-tab', 'orders-tab'];
+        const tabs = ['personal-info-tab', 'favorite-list-tab', 'orders-tab','user-comments-tab'];
         tabs.forEach(tab => {
             document.getElementById(tab).classList.remove('active');
         });
         document.getElementById(section + '-tab').classList.add('active');
+        const url = new URL(window.location);
+        url.searchParams.set('section', section);
+        window.history.pushState({}, '', url);
+            if (func) {
+            func()
+        }
     }
 
 document.addEventListener('DOMContentLoaded', function () {
     const updatePassword = document.getElementById('update-password-btn');
     const updateProfile = document.getElementById('update-profile-btn');
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+   if (section) {
+        showSection(section, section === 'user-comments' ? loadUserComments : null);
+   } else {
+        showSection('personal-info');
+   }
 
     updatePassword.addEventListener('click', (event) => {
         event.preventDefault();

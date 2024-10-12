@@ -8,6 +8,7 @@
     </a>
     {% for product in data %}
         <input id="product-id" value="{{ product.id }}" hidden="hidden">
+        <input id="user-id" value="{{ request.user.is_authenticated }}" hidden="hidden">
         <div class="product-show" style="position: relative">
             <div class="product-image" style="height: 308px">
                 <h5 class="menu-price">${{ product.price }}</h5>
@@ -52,7 +53,6 @@
                                 </div>
                                 <div class="login-tooltip">This activity requires <a href="/api/register/">Login</a></div>
                             </div>
-
                         {% endif %}
                     </div>
                     <hr class="hr-product">
@@ -91,15 +91,21 @@
                     </div>
                     <script src="{% static 'js/order/add_to_cart.js' %}"></script>
                 {% else %}
-                    <div style="align-self: flex-end; flex-direction: column; display: flex">
-                        <div class="product-items">
-                            <i id='add-to-cart-button' class="fa-solid fa-cart-plus product-cart-item"></i>
-                            <input type="number" class="quantity-input-simple " value="1" min="1">
+                    <div class="add-to-cart-off-container logged-out" tabindex="0">
+                        <div style="align-self: flex-end; flex-direction: column; display: flex">
+                            <div class="product-items">
+                                <i class="fa-solid fa-cart-plus cart-item-off" ></i>
+                                <input type="number" class="quantity-input-simple " value="1" min="1">
+                            </div>
                         </div>
+                        <div class="login-tooltip-cart">This activity requires <a href="/api/register/">Login</a></div>
                     </div>
+                    
                 {% endif %}
             </div>
         </div>
-    {% endfor %}
-{% endblock %}
+        <hr style="width: 95%">
 
+    {% endfor %}
+    {% include 'comment/comment.html' %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load static %}
+<div class="comments-container">
+    <h3>Comments</h3>
+    <div class="show-comment">
+        <div id="comments"></div>
+        {% if request.user.is_authenticated %}
+            <form id="comment-form" method="POST" style="flex-direction: column; display: flex ;margin-top: 10vh">
+                <textarea class="field-comment" required maxlength="500" placeholder="Leave a comment ..." name="comment" id="new-comment" rows="5"></textarea>
+                <button type="submit" class="comment-btn">submit</button>
+            </form>
+            <script src="{% static 'js/comment/post-comment.js' %}"></script>
+        {% else %}
+            <div class="comment-access">
+                You need to
+                <a href="/api/register/">Login</a>
+                to post a comment</div>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'js/comment/comment.js' %}"></script>
+<script src="{% static 'js/comment/reaction.js' %}"></script>
